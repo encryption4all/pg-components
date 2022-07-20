@@ -1,38 +1,23 @@
-# create-svelte
+# pg-components
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+PostGuard UI component library.
 
-## Creating a project
+## Packaging
 
-If you're seeing this, you've probably already done this step. Congrats!
-
+package the library
 ```bash
-# create a new project in the current directory
-npm init svelte
-
-# create a new project in my-app
-npm init svelte my-app
+yarn package
 ```
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
+develop on a custom webpage (see `src/routes/index.svelte` )
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+yarn dev
 ```
 
-## Building
-
-To create a production version of your app:
-
+develop using storybook (see `src/stories/`)
 ```bash
-npm run build
+yarn storybook
 ```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+ see `package.json for more 
