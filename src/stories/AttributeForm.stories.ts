@@ -26,5 +26,5 @@ const Template = (args) => ({
     props: args
 });
 
-export const form1 = Template.bind({});
-form1.args = { initialPolicy: policy, onSubmit };
+export const Form1 = Template.bind({});
+Form1.args = { initialPolicy: policy, onSubmit };

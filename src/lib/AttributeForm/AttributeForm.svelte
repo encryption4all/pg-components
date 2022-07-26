@@ -9,42 +9,11 @@
 </script>
 
 <script lang="ts">
-    import { _, isLoading } from 'svelte-i18n';
     import './i18n';
-
-    interface AttributeType {
-        ident: string;
-        type: string;
-        options?: string[];
-    }
-
-    const ALLOWED_ATTRIBUTE_TYPES: { [key: string]: AttributeType[] } = {
-        mobile: [{ ident: 'pbdf.sidn-pbdf.mobilenumber.mobilenumber', type: 'string' }],
-        personalData: [
-            { ident: 'pbdf.gemeente.personalData.initials', type: 'string' },
-            { ident: 'pbdf.gemeente.personalData.firstnames', type: 'string' },
-            { ident: 'pbdf.gemeente.personalData.prefix', type: 'string' },
-            { ident: 'pbdf.gemeente.personalData.familyname', type: 'string' },
-            { ident: 'pbdf.gemeente.personalData.fullname', type: 'string' },
-            { ident: 'pbdf.gemeente.personalData.gender', type: 'string', options: ['M', 'F'] },
-            { ident: 'pbdf.gemeente.personalData.nationality', type: 'string' },
-            { ident: 'pbdf.gemeente.personalData.surname', type: 'string' },
-            { ident: 'pbdf.gemeente.personalData.dateofbirth', type: 'string' },
-            { ident: 'pbdf.gemeente.personalData.cityofbirth', type: 'string' },
-            { ident: 'pbdf.gemeente.personalData.countryofbirth', type: 'string' },
-            { ident: 'pbdf.gemeente.personalData.over12', type: 'boolean' },
-            { ident: 'pbdf.gemeente.personalData.over16', type: 'boolean' },
-            { ident: 'pbdf.gemeente.personalData.over18', type: 'boolean' },
-            { ident: 'pbdf.gemeente.personalData.over21', type: 'boolean' },
-            { ident: 'pbdf.gemeente.personalData.over65', type: 'boolean' },
-            { ident: 'pbdf.gemeente.personalData.bsn', type: 'string' },
-            {
-                ident: 'pbdf.gemeente.personalData.digidlevel',
-                type: 'string',
-                options: ['Basis', 'Midden', 'Substantieel', 'Hoog']
-            }
-        ]
-    };
+    import { ALLOWED_ATTRIBUTE_TYPES } from './consts';
+    import type { AttributeType } from './consts';
+    import { _, isLoading } from 'svelte-i18n';
+    import TypedAttribute from './TypedAttribute.svelte';
 
     export let initialPolicy: Policy = {};
     export let onSubmit: (policy: Policy) => Promise<void>;
@@ -104,7 +73,7 @@
                 <input
                     bind:value={policy[i].id}
                     type="email"
-                    placeholder="add a recipient"
+                    placeholder="Add a recipient"
                     required
                 />
                 <button class="small" on:click|preventDefault={() => deleteRecipient(i)}>-</button>
@@ -122,7 +91,8 @@
                                         ({ ident }) =>
                                             !con.some(({ t }) => ident === t) || ar.t === ident
                                     )}
-                                    <optgroup label={$_(`groupTypes.${group}`)} />
+                                    <option value="" disabled selected hidden>Please choose</option
+                                    ><optgroup label={$_(`groupTypes.${group}`)} />
                                     {#each filtered as { ident }}
                                         <option
                                             required
@@ -132,30 +102,7 @@
                                     {/each}
                                 {/each}
                             </select>
-                            {#if typ?.options}
-                                <select bind:value={policy[i].con[j].v}>
-                                    {#each typ.options as option}
-                                        <option required>{option}</option>
-                                    {/each}
-                                </select>
-                            {:else if typ?.type === 'string'}
-                                <input required bind:value={policy[i].con[j].v} />
-                            {:else if typ?.type === 'boolean'}
-                                <label for="yes">Yes</label>
-                                <input
-                                    bind:group={policy[i].con[j].v}
-                                    id="yes"
-                                    type="radio"
-                                    value="Yes"
-                                />
-                                <label for="no">No</label>
-                                <input
-                                    bind:group={policy[i].con[j].v}
-                                    id="no"
-                                    type="radio"
-                                    value="No"
-                                />
-                            {/if}
+                            <TypedAttribute bind:value={policy[i].con[j].v} {typ} />
                             <button
                                 class="small"
                                 on:click|preventDefault={() => removeAttribute(i, j)}>-</button
@@ -171,14 +118,11 @@
     </form>
 {/if}
 
-<style>
-    select,
-    input {
+<style type="postcss">
+    :global(input, select) {
         width: 150px;
-    }
-
-    input[type='radio'] {
-        width: 50px;
+        height: 25px;
+        box-sizing: border-box;
     }
 
     form {

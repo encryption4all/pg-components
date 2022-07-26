@@ -1,6 +1,6 @@
 <script lang="ts">
-    import AttributeForm from './../lib/AttributeForm/AttributeForm.svelte';
-    import type Policy from './../lib/AttributeForm/AttributeForm.svelte';
+    import AttributeForm from '$lib/AttributeForm/AttributeForm.svelte';
+    import type Policy from '$lib/AttributeForm/AttributeForm.svelte';
 
     const policy = {
         'leon.botros@gmail.com': [
