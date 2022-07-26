@@ -73,6 +73,7 @@
                 <input
                     bind:value={policy[i].id}
                     type="email"
+                    size="25"
                     placeholder="Add a recipient"
                     required
                 />
@@ -119,7 +120,7 @@
 {/if}
 
 <style type="postcss">
-    :global(input, select) {
+    :global(input:not([type='email']), select) {
         width: 150px;
         height: 25px;
         box-sizing: border-box;
