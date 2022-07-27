@@ -11,6 +11,14 @@
             <option>{option}</option>
         {/each}
     </select>
+{:else if typ?.type === 'string' && typ?.ident.endsWith('mobilenumber')}
+    <input
+        required
+        bind:value
+        type="tel"
+        pattern={String.raw`^\+[0-9]{0,4}6[0-9]{8}$`}
+        placeholder="+31612345678"
+    />
 {:else if typ?.type === 'string'}
     <input required bind:value />
 {:else if typ?.type === 'boolean'}
