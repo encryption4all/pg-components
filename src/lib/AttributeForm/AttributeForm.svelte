@@ -73,6 +73,7 @@
                 <input
                     bind:value={policy[i].id}
                     type="email"
+                    autocomplete="email"
                     size="25"
                     placeholder="Add a recipient"
                     required

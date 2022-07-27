@@ -24,4 +24,4 @@ develop using storybook (see `src/stories/`)
 yarn storybook
 ```
 
-see `package.json for more
+see `package.json` for more commands.
