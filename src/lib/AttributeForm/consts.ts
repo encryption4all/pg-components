@@ -12,7 +12,7 @@ export const ALLOWED_ATTRIBUTE_TYPES: { [key: string]: AttributeType[] } = {
         { ident: 'pbdf.gemeente.personalData.prefix', type: 'string' },
         { ident: 'pbdf.gemeente.personalData.familyname', type: 'string' },
         { ident: 'pbdf.gemeente.personalData.fullname', type: 'string' },
-        { ident: 'pbdf.gemeente.personalData.gender', type: 'string', options: ['M', 'F'] },
+        { ident: 'pbdf.gemeente.personalData.gender', type: 'string', options: ['M', 'V'] },
         { ident: 'pbdf.gemeente.personalData.nationality', type: 'string' },
         { ident: 'pbdf.gemeente.personalData.surname', type: 'string' },
         { ident: 'pbdf.gemeente.personalData.dateofbirth', type: 'string' },
