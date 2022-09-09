@@ -21,16 +21,18 @@ export const ALLOWED_ATTRIBUTE_TYPES: { [key: string]: AttributeType[] } = {
         { ident: 'pbdf.gemeente.personalData.dateofbirth', type: 'string', img: 'calendar.svg' },
         //       { ident: 'pbdf.gemeente.personalData.cityofbirth', type: 'string' },
         //       { ident: 'pbdf.gemeente.personalData.countryofbirth', type: 'string' },
-        { ident: 'pbdf.gemeente.personalData.over12', type: 'boolean' },
-        { ident: 'pbdf.gemeente.personalData.over16', type: 'boolean' },
-        { ident: 'pbdf.gemeente.personalData.over18', type: 'boolean' },
-        { ident: 'pbdf.gemeente.personalData.over21', type: 'boolean' },
-        { ident: 'pbdf.gemeente.personalData.over65', type: 'boolean' }
+        //{ ident: 'pbdf.gemeente.personalData.over12', type: 'boolean' },
+        //{ ident: 'pbdf.gemeente.personalData.over16', type: 'boolean' },
+        { ident: 'pbdf.gemeente.personalData.over18', type: 'boolean', img: 'calendar.svg' }
+        //{ ident: 'pbdf.gemeente.personalData.over21', type: 'boolean' },
+        //{ ident: 'pbdf.gemeente.personalData.over65', type: 'boolean' }
         //       { ident: 'pbdf.gemeente.personalData.bsn', type: 'string' },
         //       {
         //           ident: 'pbdf.gemeente.personalData.digidlevel',
         //           type: 'string',
         //           options: ['Basis', 'Midden', 'Substantieel', 'Hoog']
         //       }
-    ]
+    ],
+    education: [{ ident: 'pbdf.pbdf.surfnet-2.id', type: 'string', img: 'education.svg' }],
+    health: [{ ident: 'pbdf.nuts.agb.agbcode', type: 'string', img: 'health.svg' }]
 };

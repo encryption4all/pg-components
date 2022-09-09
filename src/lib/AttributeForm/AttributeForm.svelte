@@ -76,7 +76,14 @@
                     <div class="left-border">
                         <img src="images/envelope.svg" alt="email icon" />
                     </div>
-                    <input class="right-border" value={policy[i].id} />
+                    <input
+                        type="email"
+                        autocomplete="email"
+                        placeholder=""
+                        required
+                        class="right-border"
+                        value={policy[i].id}
+                    />
                 </div>
                 <div id="attribute-con">
                     {#each con as ar, j}
@@ -86,9 +93,7 @@
                                 required
                                 bind:value={policy[i].con[j].t}
                                 on:change={() => (policy[i].con[j].v = '')}
-                                style={typ?.img
-                                    ? `background-image: url("images/${typ.img}"); background-repeat: no-repeat; background-position: left 50% top 50%;`
-                                    : ''}
+                                style={typ?.img ? `background-image: url("images/${typ.img}")` : ''}
                             >
                                 {#each Object.entries(ALLOWED_ATTRIBUTE_TYPES) as [group, types]}
                                     {@const filtered = types.filter(
@@ -188,12 +193,11 @@
             color: var(--pg-white);
             border: 0px solid black;
             border-radius: 15px 0px 0px 15px;
-            padding: 3px;
+            padding: 3px 0 0 20px;
 
-            optgroup {
-                option:checked {
-                }
-            }
+            background-repeat: no-repeat;
+            background-position: left 10px top 50%;
+            background-size: 13px 13px;
         }
     }
 
@@ -213,6 +217,11 @@
     div#recipient {
         display: flex;
         align-items: center;
+
+        img {
+            width: 13px;
+            height: 13px;
+        }
 
         div {
             display: flex;

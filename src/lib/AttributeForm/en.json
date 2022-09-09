@@ -18,10 +18,14 @@
         "pbdf.gemeente.personalData.over21": "Older than 21",
         "pbdf.gemeente.personalData.over65": "Older than 65",
         "pbdf.gemeente.personalData.bsn": "BSN",
-        "pbdf.gemeente.personalData.digidlevel": "DigiD assurance level"
+        "pbdf.gemeente.personalData.digidlevel": "DigiD assurance level",
+        "pbdf.pbdf.surfnet-2.id": "Education ID",
+        "pbdf.nuts.agb.agbcode": "AGB code"
     },
     "groupTypes": {
         "personalData": "Personal data",
-        "mobile": "Mobile number"
+        "mobile": "Mobile number",
+        "education": "Education",
+        "health": "Health"
     }
 }
