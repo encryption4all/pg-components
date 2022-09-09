@@ -4,10 +4,10 @@
 
     const policy = {
         'leon.botros@gmail.com': [
-            { t: 'pbdf.sidn-pbdf.mobilenumber.mobilenumber', v: '0612345678' }
+            { t: 'pbdf.sidn-pbdf.mobilenumber.mobilenumber', v: '+31612345678' }
         ],
         'l.botros@cs.ru.nl': [
-            { t: 'pbdf.sidn-pbdf.mobilenumber.mobilenumber', v: '0612345678' },
+            { t: 'pbdf.sidn-pbdf.mobilenumber.mobilenumber', v: '+31612345678' },
             { t: 'pbdf.gemeente.personalData.fullname', v: 'L. Botros' }
         ]
     };

@@ -14,6 +14,8 @@
     import type { AttributeType } from './consts';
     import { _, isLoading } from 'svelte-i18n';
     import TypedAttribute from './TypedAttribute.svelte';
+    import './../../app.css';
+    import { fade, fly } from 'svelte/transition';
 
     export let initialPolicy: Policy = {};
     export let onSubmit: (policy: Policy) => Promise<void>;
@@ -70,48 +72,55 @@
     <form on:submit|preventDefault={handleSubmit}>
         {#each policy as { con }, i}
             <div id="attribute-row">
-                <input
-                    bind:value={policy[i].id}
-                    type="email"
-                    autocomplete="email"
-                    size="25"
-                    placeholder="Add a recipient"
-                    required
-                />
-                <button class="small" on:click|preventDefault={() => deleteRecipient(i)}>-</button>
+                <div id="recipient">
+                    <div class="left-border">
+                        <img src="images/envelope.svg" alt="email icon" />
+                    </div>
+                    <input class="right-border" value={policy[i].id} />
+                </div>
                 <div id="attribute-con">
                     {#each con as ar, j}
                         {@const typ = typeOf(ar)}
-                        <div id="attribute-request">
+                        <div id="attribute-request" transition:fade={{ duration: 300 }}>
                             <select
+                                required
                                 bind:value={policy[i].con[j].t}
                                 on:change={() => (policy[i].con[j].v = '')}
-                                required
+                                style={typ?.img
+                                    ? `background-image: url("images/${typ.img}"); background-repeat: no-repeat; background-position: left 50% top 50%;`
+                                    : ''}
                             >
                                 {#each Object.entries(ALLOWED_ATTRIBUTE_TYPES) as [group, types]}
                                     {@const filtered = types.filter(
                                         ({ ident }) =>
                                             !con.some(({ t }) => ident === t) || ar.t === ident
                                     )}
-                                    <option value="" disabled selected hidden>Please choose</option
-                                    ><optgroup label={$_(`groupTypes.${group}`)} />
-                                    {#each filtered as { ident }}
-                                        <option
-                                            required
-                                            value={ident}
-                                            label={$_(`attributeTypes.${ident}`)}
-                                        />
-                                    {/each}
+                                    <option value="" disabled selected hidden /><optgroup
+                                        label={$_(`groupTypes.${group}`)}
+                                    >
+                                        {#each filtered as { ident }}
+                                            <option
+                                                required
+                                                value={ident}
+                                                label={$_(`attributeTypes.${ident}`)}
+                                            />
+                                        {/each}
+                                    </optgroup>
                                 {/each}
                             </select>
                             <TypedAttribute bind:value={policy[i].con[j].v} {typ} />
-                            <button
-                                class="small"
-                                on:click|preventDefault={() => removeAttribute(i, j)}>-</button
-                            >
+                            <div id="button-container">
+                                <button
+                                    trans
+                                    id="close"
+                                    on:click|preventDefault={() => removeAttribute(i, j)}
+                                />
+                            </div>
                         </div>
                     {/each}
-                    <button class="small" on:click|preventDefault={() => addAttribute(i)}>+</button>
+                    <button on:click|preventDefault={() => addAttribute(i)}
+                        >Add recipient data</button
+                    >
                 </div>
             </div>
         {/each}
@@ -120,36 +129,109 @@
     </form>
 {/if}
 
-<style type="postcss">
-    :global(input:not([type='email']), select) {
-        width: 150px;
-        height: 25px;
-        box-sizing: border-box;
-    }
-
+<style type="scss">
     form {
         width: auto;
-    }
-
-    button.small {
-        height: 25px;
-        width: 25px;
     }
 
     #attribute-row {
         position: relative;
         display: flex;
         align-items: center;
-        padding-bottom: 15px;
+        border-bottom: 1px solid var(--pg-border-color);
+        margin: 5px 0 5px 0;
+        padding-bottom: 5px;
+        gap: 5px;
+        font-size: 12px;
     }
 
     #attribute-con {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 5px;
     }
 
     #attribute-request {
         display: flex;
         flex-direction: row;
+
+        #button-container {
+            border: 0px;
+            border-left: 0;
+            border-radius: 0 15px 15px 0;
+            width: 25px;
+            background-color: var(--pg-white);
+
+            button {
+                width: 25px;
+                height: 23px;
+                position: relative;
+                visibility: hidden;
+                opacity: 0;
+                transition: visibility 0.3s linear, opacity 0.3s linear;
+
+                background-color: var(--pg-white);
+                background-image: url('images/close.svg');
+                background-repeat: no-repeat;
+                background-position: left 50% top 50%;
+            }
+
+            &:hover > button {
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+
+        select {
+            background-color: var(--pg-blue);
+            color: var(--pg-white);
+            border: 0px solid black;
+            border-radius: 15px 0px 0px 15px;
+            padding: 3px;
+
+            optgroup {
+                option:checked {
+                }
+            }
+        }
+    }
+
+    .left-border {
+        border: 0px solid black;
+        border-radius: 15px 0 0 15px;
+        padding: 3px;
+    }
+
+    .right-border {
+        border: 0px solid black;
+        border-radius: 0 15px 15px 0;
+        border-left: 0px;
+        padding: 3px;
+    }
+
+    div#recipient {
+        display: flex;
+        align-items: center;
+
+        div {
+            display: flex;
+            height: 15px;
+            background-color: var(--pg-blue);
+            width: 25px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        input {
+            height: 15px;
+            background-color: var(--pg-white);
+        }
+    }
+
+    button {
+        border: 0px solid black;
+        border-radius: 15px;
+        padding: 3px 6px 3px 6px;
     }
 </style>

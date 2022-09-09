@@ -1,5 +1,6 @@
 <script lang="ts">
     import type { AttributeType } from './consts';
+    import './../../app.css';
 
     export let value: string;
     export let typ: AttributeType;
@@ -12,16 +13,28 @@
         {/each}
     </select>
 {:else if typ?.type === 'string'}
-    <input required bind:value />
+    <span contenteditable="true" bind:textContent={value} />
 {:else if typ?.type === 'boolean'}
-    <label for="yes">Yes</label>
-    <input bind:group={value} required id="yes" type="radio" value="Yes" />
-    <label for="no">No</label>
-    <input required bind:group={value} id="no" type="radio" value="No" />
+    <select bind:value required>
+        <option>Yes</option>
+        <option>No</option>
+    </select>
 {/if}
 
-<style>
-    input[type='radio'] {
-        width: 50px;
+<style lang="scss">
+    span,
+    select {
+        line-height: 17px;
+        border: 0px solid black;
+        border-left: 0;
+        border-right: 0;
+        padding: 3px;
+        font-size: 12px;
+        background-color: var(--pg-white);
+        color: black;
+    }
+
+    span {
+        min-width: 30px;
     }
 </style>
