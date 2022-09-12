@@ -32,7 +32,8 @@
         on:blur={onblur}
         bind:value
         required
-        size={value?.length ? value.length - 3 : 5}
+        size={value?.length ? value.length - 3 : typ?.placeholder ? typ.placeholder.length : 5}
+        placeholder={typ?.placeholder ? typ.placeholder : ''}
     />
 {:else if typ?.type === 'boolean'}
     <select bind:this={element} on:focus={onfocus} on:blur={onblur} bind:value required>

@@ -3,11 +3,17 @@ export interface AttributeType {
     type: string;
     options?: string[];
     img?: string;
+    placeholder?: string;
 }
 
 export const ALLOWED_ATTRIBUTE_TYPES: { [key: string]: AttributeType[] } = {
     mobile: [
-        { ident: 'pbdf.sidn-pbdf.mobilenumber.mobilenumber', type: 'string', img: 'phone.svg' }
+        {
+            ident: 'pbdf.sidn-pbdf.mobilenumber.mobilenumber',
+            type: 'string',
+            img: 'phone.svg',
+            placeholder: '+31612345678'
+        }
     ],
     personalData: [
         //       { ident: 'pbdf.gemeente.personalData.initials', type: 'string' },
@@ -18,7 +24,12 @@ export const ALLOWED_ATTRIBUTE_TYPES: { [key: string]: AttributeType[] } = {
         //{ ident: 'pbdf.gemeente.personalData.gender', type: 'string', options: ['M', 'V'] },
         //       { ident: 'pbdf.gemeente.personalData.nationality', type: 'string' },
         { ident: 'pbdf.gemeente.personalData.surname', type: 'string', img: 'personal.svg' },
-        { ident: 'pbdf.gemeente.personalData.dateofbirth', type: 'string', img: 'calendar.svg' }
+        {
+            ident: 'pbdf.gemeente.personalData.dateofbirth',
+            type: 'string',
+            img: 'calendar.svg',
+            placeholder: '01-01-1970'
+        }
         //       { ident: 'pbdf.gemeente.personalData.cityofbirth', type: 'string' },
         //       { ident: 'pbdf.gemeente.personalData.countryofbirth', type: 'string' },
         //{ ident: 'pbdf.gemeente.personalData.over12', type: 'boolean' },
@@ -34,5 +45,12 @@ export const ALLOWED_ATTRIBUTE_TYPES: { [key: string]: AttributeType[] } = {
         //       }
     ],
     education: [{ ident: 'pbdf.pbdf.surfnet-2.id', type: 'string', img: 'education.svg' }],
-    health: [{ ident: 'pbdf.nuts.agb.agbcode', type: 'string', img: 'health.svg' }]
+    health: [
+        {
+            ident: 'pbdf.nuts.agb.agbcode',
+            type: 'string',
+            img: 'health.svg',
+            placeholder: '90012345'
+        }
+    ]
 };
