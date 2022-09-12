@@ -50,6 +50,5 @@
         "svelte-i18n": "^3.4.0"
     },
     "type": "module",
-    "dependencies": {
-    }
+    "dependencies": {}
 }
