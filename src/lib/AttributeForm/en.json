@@ -27,5 +27,8 @@
         "mobile": "Mobile number",
         "education": "Education",
         "health": "Health"
-    }
+    },
+    "instruction": "Specify data recipient(s) must prove to decrypt and read the email (content, subject and attachments).",
+    "addAttribute": "add recipient data",
+    "addRecipient": "add recipient"
 }

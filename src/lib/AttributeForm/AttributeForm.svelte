@@ -5,6 +5,8 @@
     type AttributeRequest = {
         t: string;
         v: string;
+        focused: boolean;
+        input: any;
     };
 </script>
 
@@ -19,6 +21,7 @@
 
     export let initialPolicy: Policy = {};
     export let onSubmit: (policy: Policy) => Promise<void>;
+    export let submitButton: boolean = false;
 
     let policy: PolicyList = [];
     $: policy = policy.length
@@ -56,7 +59,7 @@
     };
 
     const addAttribute = (i: number) => {
-        policy[i].con.push({ t: '', v: '' });
+        policy[i].con.push({ t: '', v: '', focused: true });
         policy = policy;
     };
 
@@ -70,29 +73,35 @@
     Loading...
 {:else}
     <form on:submit|preventDefault={handleSubmit}>
+        <div class="attribute-row" id="instruction">{$_('instruction')}</div>
         {#each policy as { con }, i}
-            <div id="attribute-row">
+            <div class="attribute-row">
                 <div id="recipient">
                     <div class="left-border">
                         <img src="images/envelope.svg" alt="email icon" />
                     </div>
                     <input
+                        required
                         type="email"
                         autocomplete="email"
                         placeholder=""
-                        required
+                        size={policy[i].id ? policy[i].id.length - 3 : 15}
                         class="right-border"
-                        value={policy[i].id}
+                        bind:value={policy[i].id}
                     />
                 </div>
                 <div id="attribute-con">
                     {#each con as ar, j}
                         {@const typ = typeOf(ar)}
-                        <div id="attribute-request" transition:fade={{ duration: 300 }}>
+                        <div id="attribute-request" transition:fade>
                             <select
                                 required
-                                bind:value={policy[i].con[j].t}
-                                on:change={() => (policy[i].con[j].v = '')}
+                                bind:value={ar.t}
+                                on:change={() => {
+                                    ar.v = '';
+                                    ar.input.focus();
+                                }}
+                                on:focus={() => (ar.focused = true)}
                                 style={typ?.img ? `background-image: url("images/${typ.img}")` : ''}
                             >
                                 {#each Object.entries(ALLOWED_ATTRIBUTE_TYPES) as [group, types]}
@@ -100,23 +109,24 @@
                                         ({ ident }) =>
                                             !con.some(({ t }) => ident === t) || ar.t === ident
                                     )}
-                                    <option value="" disabled selected hidden /><optgroup
-                                        label={$_(`groupTypes.${group}`)}
-                                    >
-                                        {#each filtered as { ident }}
-                                            <option
-                                                required
-                                                value={ident}
-                                                label={$_(`attributeTypes.${ident}`)}
-                                            />
-                                        {/each}
-                                    </optgroup>
+                                    <option value="" disabled selected hidden />
+                                    {#each filtered as { ident }}
+                                        <option
+                                            required
+                                            value={ident}
+                                            label={ar.focused ? $_(`attributeTypes.${ident}`) : ''}
+                                        />
+                                    {/each}
                                 {/each}
                             </select>
-                            <TypedAttribute bind:value={policy[i].con[j].v} {typ} />
+                            <TypedAttribute
+                                bind:this={ar.input}
+                                bind:value={ar.v}
+                                bind:focused={ar.focused}
+                                {typ}
+                            />
                             <div id="button-container">
                                 <button
-                                    trans
                                     id="close"
                                     on:click|preventDefault={() => removeAttribute(i, j)}
                                 />
@@ -124,13 +134,15 @@
                         </div>
                     {/each}
                     <button on:click|preventDefault={() => addAttribute(i)}
-                        >Add recipient data</button
+                        >{$_('addAttribute')}</button
                     >
                 </div>
             </div>
         {/each}
-        <button on:click|preventDefault={addRecipient}>Add recipient</button>
-        <button type="submit">Submit</button>
+        <button on:click|preventDefault={addRecipient}>{$_('addRecipient')}</button>
+        {#if submitButton}
+            <button type="submit">Submit</button>
+        {/if}
     </form>
 {/if}
 
@@ -139,7 +151,11 @@
         width: auto;
     }
 
-    #attribute-row {
+    #instruction {
+        color: var(--pg-white);
+    }
+
+    .attribute-row {
         position: relative;
         display: flex;
         align-items: center;
@@ -181,11 +197,11 @@
                 background-repeat: no-repeat;
                 background-position: left 50% top 50%;
             }
+        }
 
-            &:hover > button {
-                visibility: visible;
-                opacity: 1;
-            }
+        &:hover > #button-container > button {
+            visibility: visible;
+            opacity: 1;
         }
 
         select {
@@ -196,7 +212,7 @@
             padding: 3px 0 0 20px;
 
             background-repeat: no-repeat;
-            background-position: left 10px top 50%;
+            background-position: left 8px top 50%;
             background-size: 13px 13px;
         }
     }
@@ -219,8 +235,8 @@
         align-items: center;
 
         img {
-            width: 13px;
-            height: 13px;
+            width: 18px;
+            height: 18px;
         }
 
         div {
@@ -241,6 +257,12 @@
     button {
         border: 0px solid black;
         border-radius: 15px;
-        padding: 3px 6px 3px 6px;
+        padding: 3px 12px 3px 12px;
+        background-color: var(--pg-blue);
+        color: var(--pg-white);
+
+        &[type='submit'] {
+            float: right;
+        }
     }
 </style>

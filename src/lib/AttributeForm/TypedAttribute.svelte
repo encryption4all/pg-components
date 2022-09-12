@@ -1,28 +1,48 @@
 <script lang="ts">
     import type { AttributeType } from './consts';
+    import { tick } from 'svelte';
+
     import './../../app.css';
 
+    let element;
+
+    export let focused: boolean = false;
     export let value: string;
     export let typ: AttributeType;
+
+    const onfocus = () => (focused = true);
+    const onblur = () => (focused = false);
+
+    export async function focus() {
+        await tick();
+        element.focus();
+    }
 </script>
 
 {#if typ?.options}
-    <select bind:value required>
+    <select bind:this={element} on:focus={onfocus} on:blur={onblur} bind:value required>
         {#each typ.options as option}
             <option>{option}</option>
         {/each}
     </select>
 {:else if typ?.type === 'string'}
-    <span contenteditable="true" bind:textContent={value} />
+    <input
+        bind:this={element}
+        on:focus={onfocus}
+        on:blur={onblur}
+        bind:value
+        required
+        size={value?.length ? value.length - 3 : 5}
+    />
 {:else if typ?.type === 'boolean'}
-    <select bind:value required>
+    <select bind:this={element} on:focus={onfocus} on:blur={onblur} bind:value required>
         <option>Yes</option>
         <option>No</option>
     </select>
 {/if}
 
 <style lang="scss">
-    span,
+    input,
     select {
         line-height: 17px;
         border: 0px solid black;
@@ -34,7 +54,7 @@
         color: black;
     }
 
-    span {
+    input {
         min-width: 30px;
     }
 </style>

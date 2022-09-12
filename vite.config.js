@@ -2,13 +2,7 @@ import { sveltekit } from '@sveltejs/kit/vite';
 
 /** @type {import('vite').UserConfig} */
 const config = {
-    plugins: [sveltekit()],
-
-    resolve: {
-        alias: {
-            $lib: './src/lib'
-        }
-    }
+    plugins: [sveltekit()]
 };
 
 export default config;
