@@ -43,7 +43,10 @@
     const handleSubmit = async () => {
         const res: { [key: string]: AttributeCon } = {};
         for (const { id, con } of policy) {
-            res[id] = [{ t: 'pbdf.sidn-pbdf.email.email', v: id }, ...con];
+            res[id] = [{ t: 'pbdf.sidn-pbdf.email.email', v: id }];
+            for (const { t, v } of con) {
+                res[id].push({ t, v });
+            }
         }
         await onSubmit(res);
     };
