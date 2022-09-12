@@ -2,8 +2,6 @@
     import type { AttributeType } from './consts';
     import { tick } from 'svelte';
 
-    import './../../app.css';
-
     let element;
 
     export let focused: boolean = false;

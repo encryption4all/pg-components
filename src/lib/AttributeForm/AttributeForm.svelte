@@ -16,7 +16,6 @@
     import type { AttributeType } from './consts';
     import { _, isLoading } from 'svelte-i18n';
     import TypedAttributeValue from './TypedAttributeValue.svelte';
-    import './../../app.css';
     import { fade, fly } from 'svelte/transition';
 
     export let initialPolicy: Policy = {};
