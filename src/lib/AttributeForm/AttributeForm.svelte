@@ -102,7 +102,11 @@
                                     ar.input.focus();
                                 }}
                                 on:focus={() => (ar.focused = true)}
-                                style={typ?.img ? `background-image: url("images/${typ.img}")` : ''}
+                                style={typ?.img
+                                    ? `background-image: url("images/${typ.img}"); padding-left: ${
+                                          ar.focused ? '25px' : '20px'
+                                      }`
+                                    : ''}
                             >
                                 {#each Object.entries(ALLOWED_ATTRIBUTE_TYPES) as [group, types]}
                                     {@const filtered = types.filter(
@@ -209,11 +213,11 @@
             color: var(--pg-white);
             border: 0px solid black;
             border-radius: 15px 0px 0px 15px;
-            padding: 3px 0 0 20px;
+            padding: 3px 0 0 25px;
 
             background-repeat: no-repeat;
             background-position: left 8px top 50%;
-            background-size: 13px 13px;
+            background-size: 20px 20px;
         }
     }
 
@@ -235,8 +239,8 @@
         align-items: center;
 
         img {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
         }
 
         div {
