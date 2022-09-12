@@ -145,7 +145,7 @@
         {/each}
         <button on:click|preventDefault={addRecipient}>{$_('addRecipient')}</button>
         {#if submitButton}
-            <button type="submit">Submit</button>
+            <button type="submit">{$_('submit')}</button>
         {/if}
     </form>
 {/if}
