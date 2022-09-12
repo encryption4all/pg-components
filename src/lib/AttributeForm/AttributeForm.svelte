@@ -74,79 +74,83 @@
 {:else}
     <form on:submit|preventDefault={handleSubmit}>
         <div class="attribute-row" id="instruction">{$_('instruction')}</div>
-        {#each policy as { con }, i}
-            <div class="attribute-row">
-                <div id="recipient">
-                    <div class="left-border">
-                        <img src="images/envelope.svg" alt="email icon" />
-                    </div>
-                    <input
-                        required
-                        type="email"
-                        autocomplete="email"
-                        placeholder=""
-                        size={policy[i].id ? policy[i].id.length - 3 : 15}
-                        class="right-border"
-                        bind:value={policy[i].id}
-                    />
-                </div>
-                <div id="attribute-con">
-                    {#each con as ar, j}
-                        {@const typ = typeOf(ar)}
-                        <div id="attribute-request" transition:fade>
-                            <select
-                                required
-                                bind:value={ar.t}
-                                on:change={() => {
-                                    ar.v = '';
-                                    ar.input.focus();
-                                }}
-                                on:focus={() => (ar.focused = true)}
-                                style={typ?.img
-                                    ? `background-image: url("images/${typ.img}"); padding-left: ${
-                                          ar.focused ? '25px' : '20px'
-                                      }`
-                                    : ''}
-                            >
-                                {#each Object.entries(ALLOWED_ATTRIBUTE_TYPES) as [group, types]}
-                                    {@const filtered = types.filter(
-                                        ({ ident }) =>
-                                            !con.some(({ t }) => ident === t) || ar.t === ident
-                                    )}
-                                    <option value="" disabled selected hidden />
-                                    {#each filtered as { ident }}
-                                        <option
-                                            required
-                                            value={ident}
-                                            label={ar.focused ? $_(`attributeTypes.${ident}`) : ''}
-                                        />
-                                    {/each}
-                                {/each}
-                            </select>
-                            <TypedAttributeValue
-                                bind:this={ar.input}
-                                bind:value={ar.v}
-                                bind:focused={ar.focused}
-                                {typ}
-                            />
-                            <div id="button-container">
-                                <button
-                                    id="close"
-                                    on:click|preventDefault={() => removeAttribute(i, j)}
-                                />
-                            </div>
+        <div id="row-container">
+            {#each policy as { con }, i}
+                <div class="attribute-row">
+                    <div id="recipient">
+                        <div class="left-border">
+                            <img src="images/envelope.svg" alt="email icon" />
                         </div>
-                    {/each}
-                    <button on:click|preventDefault={() => addAttribute(i)}
-                        >{$_('addAttribute')}</button
-                    >
+                        <input
+                            required
+                            type="email"
+                            autocomplete="email"
+                            placeholder=""
+                            size={policy[i].id ? policy[i].id.length - 3 : 15}
+                            class="right-border"
+                            bind:value={policy[i].id}
+                        />
+                    </div>
+                    <div id="attribute-con">
+                        {#each con as ar, j}
+                            {@const typ = typeOf(ar)}
+                            <div id="attribute-request" transition:fade>
+                                <select
+                                    required
+                                    bind:value={ar.t}
+                                    on:change={() => {
+                                        ar.v = '';
+                                        ar.input.focus();
+                                    }}
+                                    on:focus={() => (ar.focused = true)}
+                                    style={typ?.img
+                                        ? `background-image: url("images/${
+                                              typ.img
+                                          }"); padding-left: ${ar.focused ? '25px' : '20px'}`
+                                        : ''}
+                                >
+                                    {#each Object.entries(ALLOWED_ATTRIBUTE_TYPES) as [group, types]}
+                                        {@const filtered = types.filter(
+                                            ({ ident }) =>
+                                                !con.some(({ t }) => ident === t) || ar.t === ident
+                                        )}
+                                        <option value="" disabled selected hidden />
+                                        {#each filtered as { ident }}
+                                            <option
+                                                required
+                                                value={ident}
+                                                label={ar.focused
+                                                    ? $_(`attributeTypes.${ident}`)
+                                                    : ''}
+                                            />
+                                        {/each}
+                                    {/each}
+                                </select>
+                                <TypedAttributeValue
+                                    bind:this={ar.input}
+                                    bind:value={ar.v}
+                                    bind:focused={ar.focused}
+                                    {typ}
+                                />
+                                <div id="button-container">
+                                    <button
+                                        id="close"
+                                        on:click|preventDefault={() => removeAttribute(i, j)}
+                                    />
+                                </div>
+                            </div>
+                        {/each}
+                        <button on:click|preventDefault={() => addAttribute(i)}
+                            >{$_('addAttribute')}</button
+                        >
+                    </div>
                 </div>
-            </div>
-        {/each}
-        <button on:click|preventDefault={addRecipient}>{$_('addRecipient')}</button>
-        {#if submitButton}
-            <button type="submit">{$_('submit')}</button>
-        {/if}
+            {/each}
+            <button on:click|preventDefault={addRecipient}>{$_('addRecipient')}</button>
+            {#if submitButton}
+                <button type="submit">Submit</button>
+            {/if}
+        </div>
     </form>
 {/if}
 
@@ -156,14 +160,19 @@
     }
 
     #instruction {
+        padding-left: 10px;
         color: var(--pg-white);
+    }
+
+    #row-container {
+        margin: 0 10px 0 10px;
     }
 
     .attribute-row {
         position: relative;
         display: flex;
-        align-items: center;
         border-bottom: 1px solid var(--pg-border-color);
+        align-items: center;
         margin: 5px 0 5px 0;
         padding-bottom: 5px;
         gap: 5px;
