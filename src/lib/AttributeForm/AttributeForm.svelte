@@ -15,7 +15,7 @@
     import { ALLOWED_ATTRIBUTE_TYPES } from './consts';
     import type { AttributeType } from './consts';
     import { _, isLoading } from 'svelte-i18n';
-    import TypedAttribute from './TypedAttribute.svelte';
+    import TypedAttributeValue from './TypedAttributeValue.svelte';
     import './../../app.css';
     import { fade, fly } from 'svelte/transition';
 
@@ -123,7 +123,7 @@
                                     {/each}
                                 {/each}
                             </select>
-                            <TypedAttribute
+                            <TypedAttributeValue
                                 bind:this={ar.input}
                                 bind:value={ar.v}
                                 bind:focused={ar.focused}
