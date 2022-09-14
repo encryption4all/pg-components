@@ -11,6 +11,8 @@
     const onfocus = () => (focused = true);
     const onblur = () => (focused = false);
 
+    $: inputSize = value?.length ? value.length : typ?.placeholder ? typ.placeholder.length : 5;
+
     export async function focus() {
         await tick();
         element.focus();
@@ -30,7 +32,7 @@
         on:blur={onblur}
         bind:value
         required
-        size={value?.length ? value.length - 3 : typ?.placeholder ? typ.placeholder.length : 5}
+        size={inputSize}
         placeholder={typ?.placeholder ? typ.placeholder : ''}
     />
 {:else if typ?.type === 'boolean'}
