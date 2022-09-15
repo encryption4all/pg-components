@@ -1,14 +1,15 @@
 /* Write your global styles here, in PostCSS syntax */
+
 @font-face {
     font-family: 'Overpass';
-    src: url('fonts/Overpass-Regular.ttf') format('truetype');
+    src: url('./fonts/Overpass-Regular.ttf') format('truetype');
     font-weight: 600;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Overpass';
-    src: url('fonts/Overpass-Bold.ttf') format('truetype');
+    src: url('./fonts/Overpass-Bold.ttf') format('truetype');
     font-weight: 700;
     font-style: bold;
 }

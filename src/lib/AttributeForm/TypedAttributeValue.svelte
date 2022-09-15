@@ -43,6 +43,8 @@
 {/if}
 
 <style lang="scss">
+    @import './../app.css';
+
     input,
     select {
         line-height: 17px;
