@@ -16,9 +16,9 @@
     import type { AttributeType } from './consts';
     import { _, isLoading } from 'svelte-i18n';
     import TypedAttributeValue from './TypedAttributeValue.svelte';
-    import { fade, fly } from 'svelte/transition';
+    import { tick } from 'svelte';
 
-    let imgs = {
+    const imgs: { [string]: string } = {
         health: "data:image/svg+xml,%3Csvg width='16' height='16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg clip-path='url(%23a)'%3E%3Cpath d='M5.714 5.75V4.734c0-.234.148-.445.372-.527L7.8 3.574a.585.585 0 0 1 .402 0l1.714.633a.563.563 0 0 1 .371.527V5.75h-.005c.004.046.005.093.005.14v.704c0 1.242-1.023 2.25-2.285 2.25-1.263 0-2.286-1.007-2.286-2.25V5.89c0-.048.002-.095.005-.141h-.007Zm.857.844C6.571 7.37 7.211 8 8 8c.79 0 1.429-.63 1.429-1.406v-.282H6.57v.282ZM6.305 9.18l1.486 1.554a.29.29 0 0 0 .416 0l1.486-1.554c1.316.262 2.305 1.407 2.305 2.78 0 .298-.246.539-.548.539H4.548A.545.545 0 0 1 4 11.96c0-1.373.991-2.517 2.305-2.779Zm1.41-4.837v.281h-.286a.142.142 0 0 0-.143.14v.282c0 .077.064.14.143.14h.285v.282c0 .077.065.14.143.14h.286a.142.142 0 0 0 .143-.14v-.282h.285a.142.142 0 0 0 .143-.14v-.281a.142.142 0 0 0-.143-.141h-.285v-.281a.142.142 0 0 0-.143-.14h-.286a.142.142 0 0 0-.143.14Z' fill='%23fff'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='a'%3E%3Cpath fill='%23fff' transform='translate(4 3.5)' d='M0 0h8v9H0z'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E",
         calendar:
             "data:image/svg+xml,%3Csvg width='16' height='16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.263 11.702C4.421 11.702 4 11.29 4 10.454V5.546c0-.827.421-1.248 1.263-1.248h5.474c.842 0 1.263.42 1.263 1.248v4.908c0 .835-.421 1.248-1.263 1.248H5.263Zm-.058-.69h5.583c.348 0 .522-.166.522-.522V6.7c0-.37-.203-.558-.551-.558H5.24c-.355 0-.551.188-.551.559v3.789c0 .356.181.523.515.523Zm1.99-3.368c-.175 0-.226-.05-.226-.21v-.29c0-.168.051-.226.225-.226h.276c.174 0 .232.058.232.225v.29c0 .16-.058.211-.232.211h-.276Zm1.335 0c-.174 0-.225-.05-.225-.21v-.29c0-.168.05-.226.225-.226h.276c.174 0 .225.058.225.225v.29c0 .16-.051.211-.225.211H8.53Zm1.336 0c-.182 0-.233-.05-.233-.21v-.29c0-.168.051-.226.233-.226h.268c.175 0 .233.058.233.225v.29c0 .16-.059.211-.233.211h-.268Zm-4 1.307c-.175 0-.233-.044-.233-.21v-.284c0-.174.058-.225.233-.225h.276c.174 0 .225.051.225.225v.283c0 .167-.051.211-.225.211h-.276Zm1.328 0c-.174 0-.225-.044-.225-.21v-.284c0-.174.051-.225.225-.225h.276c.174 0 .232.051.232.225v.283c0 .167-.058.211-.232.211h-.276Zm1.336 0c-.174 0-.225-.044-.225-.21v-.284c0-.174.05-.225.225-.225h.276c.174 0 .225.051.225.225v.283c0 .167-.051.211-.225.211H8.53Zm1.336 0c-.182 0-.233-.044-.233-.21v-.284c0-.174.051-.225.233-.225h.268c.175 0 .233.051.233.225v.283c0 .167-.059.211-.233.211h-.268Zm-4 1.314c-.175 0-.233-.05-.233-.225v-.283c0-.167.058-.21.233-.21h.276c.174 0 .225.043.225.21v.283c0 .174-.051.225-.225.225h-.276Zm1.328 0c-.174 0-.225-.05-.225-.225v-.283c0-.167.051-.21.225-.21h.276c.174 0 .232.043.232.21v.283c0 .174-.058.225-.232.225h-.276Zm1.336 0c-.174 0-.225-.05-.225-.225v-.283c0-.167.05-.21.225-.21h.276c.174 0 .225.043.225.21v.283c0 .174-.051.225-.225.225H8.53Z' fill='%23fff'/%3E%3C/svg%3E",
@@ -73,13 +73,13 @@
         policy = policy;
     };
 
-    const addAttribute = (i: number) => {
-        policy[i].con.push({ t: '', v: '', focused: true });
+    const addAttribute = (i: number, t: type) => {
+        policy[i].con.push({ t, v: '', focused: true });
         policy = policy;
     };
 
     const removeAttribute = (i: number, j: number) => {
-        policy[i].con.splice(j, 1);
+        policy[i].con = policy[i].con.filter((item, idx) => idx != j);
         policy = policy;
     };
 </script>
@@ -116,7 +116,7 @@
                     <div id="attribute-con">
                         {#each con as ar, j}
                             {@const typ = typeOf(ar)}
-                            <div id="attribute-request" transition:fade>
+                            <div id="attribute-request">
                                 <select
                                     required
                                     bind:value={ar.t}
@@ -162,15 +162,40 @@
                                 </div>
                             </div>
                         {/each}
-                        <button on:click|preventDefault={() => addAttribute(i)}
-                            >{$_('addAttribute')}</button
+                        <select
+                            class="round-btn"
+                            required
+                            on:change={async (event) => {
+                                addAttribute(i, event.target.value);
+                                event.target.value = 'none';
+                                await tick();
+                                con[con.length - 1].input.focus();
+                            }}
                         >
+                            {#each Object.entries(ALLOWED_ATTRIBUTE_TYPES) as [group, types]}
+                                {@const filtered = types.filter(
+                                    ({ ident }) => !con.some(({ t }) => ident === t)
+                                )}
+                                <option value="none" disabled selected hidden
+                                    >{$_('addAttribute')}</option
+                                >
+                                {#each filtered as { ident }}
+                                    <option
+                                        required
+                                        value={ident}
+                                        label={$_(`attributeTypes.${ident}`)}
+                                    />
+                                {/each}
+                            {/each}
+                        </select>
                     </div>
                 </div>
             {/each}
-            <button on:click|preventDefault={addRecipient}>{$_('addRecipient')}</button>
+            <button class="round-btn" on:click|preventDefault={addRecipient}
+                >{$_('addRecipient')}</button
+            >
             {#if submitButton}
-                <button type="submit">Submit</button>
+                <button class="button" type="submit">{$_('submit')}</button>
             {/if}
         </div>
     </form>
@@ -302,6 +327,7 @@
         }
     }
 
+    .round-btn,
     button {
         border: 0px solid black;
         border-radius: 15px;
