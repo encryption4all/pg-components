@@ -26,8 +26,3 @@
     font-family: 'Overpass';
     font-style: normal;
 }
-
-body {
-    background-color: var(--pg-dark-blue);
-    margin: 0;
-}

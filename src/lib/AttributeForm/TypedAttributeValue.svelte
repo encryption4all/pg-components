@@ -11,6 +11,13 @@
     const onfocus = () => (focused = true);
     const onblur = () => (focused = false);
 
+    let inputProps = {};
+
+    $: if (typ) inputProps = {};
+    $: if (typ?.pattern) inputProps.pattern = typ.pattern;
+    $: if (typ?.placeholder) inputProps.placeholder = typ.placeholder;
+    $: if (typ?.ident.endsWith('mobilenumber')) inputProps.type = 'tel';
+
     $: inputSize = value?.length ? value.length : typ?.placeholder ? typ.placeholder.length : 5;
 
     export async function focus() {
@@ -33,7 +40,7 @@
         bind:value
         required
         size={inputSize}
-        placeholder={typ?.placeholder ? typ.placeholder : ''}
+        {...inputProps}
     />
 {:else if typ?.type === 'boolean'}
     <select bind:this={element} on:focus={onfocus} on:blur={onblur} bind:value required>

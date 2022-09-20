@@ -32,9 +32,11 @@
     };
 
     export let initialPolicy: Policy = {};
-    export let onSubmit: (policy: Policy) => Promise<void>;
+    export let onPolicyChange: (policy: Policy) => Promise<void> = () => {};
     export let submitButton: boolean = false;
+    export let onSubmit: (policy: Policy) => Promise<void>;
 
+    let form;
     let policy: PolicyList = [];
     $: policy = policy.length
         ? policy
@@ -42,6 +44,9 @@
               (total, [id, con]) => [{ id, con }, ...total],
               [] as PolicyList
           );
+
+    $: validatedPolicy = form?.checkValidity() ? policy : undefined;
+    $: onPolicyChange(validatedPolicy);
 
     // Helper function to get the more information of the type in an AttributeRequest.
     function typeOf(ar: AttributeRequest): AttributeType | undefined {
@@ -53,6 +58,11 @@
     }
 
     const handleSubmit = async () => {
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
         const res: { [key: string]: AttributeCon } = {};
         for (const { id, con } of policy) {
             res[id] = [{ t: 'pbdf.sidn-pbdf.email.email', v: id }];
@@ -60,6 +70,7 @@
                 res[id].push({ t, v });
             }
         }
+
         await onSubmit(res);
     };
 
@@ -87,7 +98,7 @@
 {#if $isLoading}
     Loading...
 {:else}
-    <form on:submit|preventDefault={handleSubmit}>
+    <form bind:this={form} on:submit|preventDefault={handleSubmit}>
         <div class="attribute-row" id="instruction">{$_('instruction')}</div>
         <div id="row-container">
             {#each policy as { con, removeActive }, i}
