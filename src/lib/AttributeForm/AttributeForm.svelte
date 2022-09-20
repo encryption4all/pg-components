@@ -33,7 +33,7 @@
 
     export let initialPolicy: Policy = {};
     export let onPolicyChange: (policy: Policy) => Promise<void> = () => {};
-    export let submitButton: boolean = false;
+    export let submitButton: boolean | { [customText]: string } = false;
     export let onSubmit: (policy: Policy) => Promise<void>;
 
     let form;
@@ -208,7 +208,9 @@
                 >{$_('addRecipient')}</button
             >
             {#if submitButton}
-                <button class="button" type="submit">{$_('submit')}</button>
+                <button class="button" type="submit"
+                    >{submitButton.customText ?? $_('submit')}</button
+                >
             {/if}
         </div>
     </form>

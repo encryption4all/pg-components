@@ -23,4 +23,4 @@
     };
 </script>
 
-<AttributeForm {initialPolicy} {onSubmit} {onPolicyChange} submitButton={true} />
+<AttributeForm {initialPolicy} {onSubmit} {onPolicyChange} submitButton={{ customText: 'Send' }} />
