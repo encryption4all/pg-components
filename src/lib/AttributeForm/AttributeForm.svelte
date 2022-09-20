@@ -109,7 +109,9 @@
                                 class="remove"
                                 on:click|preventDefault={() => removeRecipient(i)}
                                 on:mouseover={() => (removeActive = true)}
+                                on:focus={() => void 0}
                                 on:mouseout={() => (removeActive = false)}
+                                on:blur={() => void 0}
                             />
                         </div>
                     </div>
