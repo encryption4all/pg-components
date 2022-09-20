@@ -176,6 +176,7 @@
                             </div>
                         {/each}
                         <select
+                            id="add-recipient"
                             class="round-btn"
                             required
                             on:change={async (event) => {
@@ -345,9 +346,14 @@
     button {
         border: 0px solid black;
         border-radius: 15px;
-        padding: 3px 12px 3px 12px;
+        padding: 3px 10px 3px 10px;
         background-color: var(--pg-blue);
         color: var(--pg-white);
+
+        &#add-recipient {
+            border-right: 10px solid transparent;
+            padding-right: 0px;
+        }
     }
 
     button[type='submit'] {
