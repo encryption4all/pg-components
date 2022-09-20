@@ -217,7 +217,7 @@
         margin: 0 10px 0 10px;
 
         & > button {
-            margin-top: 5px;
+            margin-top: 7px;
         }
     }
 
@@ -226,8 +226,7 @@
         display: flex;
         border-bottom: 1px solid var(--pg-border-color);
         align-items: center;
-        padding: 5px 0 5px 0;
-        padding-bottom: 5px;
+        padding: 7px 0 7px 0;
         gap: 5px;
         font-size: 12px;
 
@@ -334,9 +333,9 @@
         padding: 3px 12px 3px 12px;
         background-color: var(--pg-blue);
         color: var(--pg-white);
+    }
 
-        &[type='submit'] {
-            float: right;
-        }
+    button[type='submit'] {
+        float: right;
     }
 </style>
