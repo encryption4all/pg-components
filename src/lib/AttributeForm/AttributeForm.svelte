@@ -101,7 +101,7 @@
                             type="email"
                             autocomplete="email"
                             placeholder=""
-                            size={policy[i].id ? policy[i].id.length - 3 : 15}
+                            size={policy[i].id ? policy[i].id.length : 15}
                             bind:value={policy[i].id}
                         />
                         <div id="button-container">
