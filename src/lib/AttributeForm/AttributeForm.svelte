@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
     export type Policy = { [key: string]: AttributeCon };
-    type PolicyList = { id: string; con: AttributeCon; removeActive: boolean }[];
+    type PolicyList = { id: string; con: AttributeCon; removeActive: boolean; input: any }[];
     type AttributeCon = AttributeRequest[];
     type AttributeRequest = {
         t: string;
@@ -85,6 +85,7 @@
     const addRecipient = () => {
         policy.push({ id: '', con: [] });
         policy = policy;
+        tick().then(() => policy[policy.length - 1].input.focus());
     };
 
     const removeRecipient = (i: number) => {
@@ -121,6 +122,7 @@
                             autocomplete="email"
                             placeholder=""
                             size={policy[i].id ? policy[i].id.length : 15}
+                            bind:this={policy[i].input}
                             bind:value={policy[i].id}
                         />
                         <div id="button-container">
