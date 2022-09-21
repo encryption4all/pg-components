@@ -350,11 +350,11 @@
         padding: 3px 10px 3px 10px;
         background-color: var(--pg-blue);
         color: var(--pg-white);
+    }
 
-        &#add-recipient-data {
-            border-right: 10px solid transparent;
-            padding-right: 0px;
-        }
+    select#add-recipient-data {
+        border-right: 10px solid transparent;
+        padding-right: 0px;
     }
 
     button[type='submit'] {
