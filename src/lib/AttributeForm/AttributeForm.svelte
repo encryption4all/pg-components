@@ -41,26 +41,20 @@
     $: policy = policy.length
         ? policy
         : Object.entries(initialPolicy).reduce(
-              (total, [id, con]) => [{ id, con }, ...total],
+              (total, [id, con]) => [
+                  { id, con: con.filter(({ t }) => t !== 'pbdf.sidn-pbdf.email.email') },
+                  ...total
+              ],
               [] as PolicyList
           );
 
-    $: validatedPolicy = form?.checkValidity() ? policy : undefined;
+    $: validatedPolicy = form && policy ? validateForm() : undefined;
     $: onPolicyChange(validatedPolicy);
 
-    // Helper function to get the more information of the type in an AttributeRequest.
-    function typeOf(ar: AttributeRequest): AttributeType | undefined {
-        for (const [, groupList] of Object.entries(ALLOWED_ATTRIBUTE_TYPES)) {
-            for (const typ of groupList) {
-                if (ar.t === typ.ident) return typ;
-            }
-        }
-    }
-
-    const handleSubmit = async () => {
+    function validateForm(): () => Policy | undefined {
         if (!form.checkValidity()) {
             form.reportValidity();
-            return;
+            return undefined;
         }
 
         const res: { [key: string]: AttributeCon } = {};
@@ -72,7 +66,20 @@
             }
         }
 
-        await onSubmit(res);
+        return res;
+    }
+
+    // Helper function to get the more information of the type in an AttributeRequest.
+    function typeOf(ar: AttributeRequest): AttributeType | undefined {
+        for (const [, groupList] of Object.entries(ALLOWED_ATTRIBUTE_TYPES)) {
+            for (const typ of groupList) {
+                if (ar.t === typ.ident) return typ;
+            }
+        }
+    }
+
+    const handleSubmit = async () => {
+        await onSubmit(validateForm());
     };
 
     const addRecipient = () => {
@@ -235,6 +242,7 @@
 
         & > button {
             margin-top: 7px;
+            margin-bottom: 7px;
         }
     }
 
