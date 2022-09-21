@@ -66,7 +66,8 @@
         const res: { [key: string]: AttributeCon } = {};
         for (const { id, con } of policy) {
             res[id] = [{ t: 'pbdf.sidn-pbdf.email.email', v: id }];
-            for (const { t, v } of con) {
+            for (let { t, v } of con) {
+                if (t === 'pbdf.gemeente.personalData.dateofbirth') v = v.replace(/\.|\//g, '-');
                 res[id].push({ t, v });
             }
         }
@@ -176,7 +177,7 @@
                             </div>
                         {/each}
                         <select
-                            id="add-recipient"
+                            id="add-recipient-data"
                             class="round-btn"
                             required
                             on:change={async (event) => {
@@ -350,7 +351,7 @@
         background-color: var(--pg-blue);
         color: var(--pg-white);
 
-        &#add-recipient {
+        &#add-recipient-data {
             border-right: 10px solid transparent;
             padding-right: 0px;
         }
