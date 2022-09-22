@@ -51,9 +51,9 @@
     $: validatedPolicy = form && policy ? validateForm() : undefined;
     $: onPolicyChange(validatedPolicy);
 
-    function validateForm(automatic = true): () => Policy | undefined {
+    function validateForm(auto: boolean = true): () => Policy | undefined {
         if (!form.checkValidity()) {
-            if (!automatic) form.reportValidity();
+            if (!auto) form.reportValidity();
             return undefined;
         }
 
@@ -79,7 +79,8 @@
     }
 
     const handleSubmit = async () => {
-        await onSubmit(validateForm(false));
+        const validated = validateForm(false);
+        if (validated) await onSubmit(validated);
     };
 
     const addRecipient = () => {
