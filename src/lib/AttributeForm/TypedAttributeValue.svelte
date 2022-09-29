@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { AttributeType } from './consts';
-    import { tick } from 'svelte';
+    import { tick, onMount } from 'svelte';
 
     let element;
 
@@ -20,14 +20,11 @@
 
     $: inputSize = value?.length ? value.length : typ?.placeholder ? typ.placeholder.length : 5;
 
-    export async function focus() {
-        await tick();
-        element.focus();
-    }
+    onMount(() => element.focus());
 </script>
 
 {#if typ?.options}
-    <select bind:this={element} on:focus={onfocus} on:blur={onblur} bind:value required>
+    <select bind:this={element} on:blur={onblur} bind:value required>
         {#each typ.options as option}
             <option>{option}</option>
         {/each}
@@ -35,7 +32,6 @@
 {:else if typ?.type === 'string'}
     <input
         bind:this={element}
-        on:focus={onfocus}
         on:blur={onblur}
         bind:value
         required
@@ -43,7 +39,7 @@
         {...inputProps}
     />
 {:else if typ?.type === 'boolean'}
-    <select bind:this={element} on:focus={onfocus} on:blur={onblur} bind:value required>
+    <select bind:this={element} on:blur={onblur} bind:value required>
         <option>Yes</option>
         <option>No</option>
     </select>

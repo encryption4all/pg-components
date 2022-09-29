@@ -1,12 +1,11 @@
 <script lang="ts" context="module">
     export type Policy = { [key: string]: AttributeCon };
-    type PolicyList = { id: string; con: AttributeCon; removeActive: boolean; input: any }[];
+    type PolicyList = { id: string; con: AttributeCon; removeActive: boolean }[];
     type AttributeCon = AttributeRequest[];
     type AttributeRequest = {
         t: string;
         v: string;
         focused: boolean;
-        input: any;
     };
 </script>
 
@@ -16,6 +15,7 @@
     import type { AttributeType } from './consts';
     import { _, isLoading } from 'svelte-i18n';
     import TypedAttributeValue from './TypedAttributeValue.svelte';
+    import EmailInput from './EmailInput.svelte';
     import { tick } from 'svelte';
 
     const imgs: { [string]: string } = {
@@ -36,17 +36,21 @@
     export let submitButton: boolean | { [customText]: string } = false;
     export let onSubmit: (policy: Policy) => Promise<void>;
 
+    let init = false;
     let form;
     let policy: PolicyList = [];
-    $: policy = policy.length
-        ? policy
-        : Object.entries(initialPolicy).reduce(
-              (total, [id, con]) => [
-                  { id, con: con.filter(({ t }) => t !== 'pbdf.sidn-pbdf.email.email') },
-                  ...total
-              ],
-              [] as PolicyList
-          );
+    $: {
+        if (!init) {
+            policy = Object.entries(initialPolicy).reduce(
+                (total, [id, con]) => [
+                    { id, con: con.filter(({ t }) => t !== 'pbdf.sidn-pbdf.email.email') },
+                    ...total
+                ],
+                [] as PolicyList
+            );
+            init = true;
+        }
+    }
 
     $: validatedPolicy = form && policy ? validateForm() : undefined;
     $: onPolicyChange(validatedPolicy);
@@ -86,12 +90,10 @@
     const addRecipient = () => {
         policy.push({ id: '', con: [] });
         policy = policy;
-        tick().then(() => policy[policy.length - 1].input.focus());
     };
 
     const removeRecipient = (i: number) => {
-        policy.splice(i, 1);
-        policy = policy;
+        policy = policy.filter((item, idx) => idx !== i);
     };
 
     const addAttribute = (i: number, t: type) => {
@@ -100,7 +102,7 @@
     };
 
     const removeAttribute = (i: number, j: number) => {
-        policy[i].con = policy[i].con.filter((item, idx) => idx != j);
+        policy[i].con = policy[i].con.filter((item, idx) => idx !== j);
         policy = policy;
     };
 </script>
@@ -117,15 +119,7 @@
                         <div class="left-border">
                             <img src={imgs.envelope} alt="email" />
                         </div>
-                        <input
-                            required
-                            type="email"
-                            autocomplete="email"
-                            placeholder=""
-                            size={policy[i].id ? policy[i].id.length : 15}
-                            bind:this={policy[i].input}
-                            bind:value={policy[i].id}
-                        />
+                        <EmailInput bind:value={policy[i].id} />
                         <div id="button-container">
                             <button
                                 class="remove"
@@ -173,7 +167,6 @@
                                     {/each}
                                 </select>
                                 <TypedAttributeValue
-                                    bind:this={ar.input}
                                     bind:value={ar.v}
                                     bind:focused={ar.focused}
                                     {typ}
@@ -190,11 +183,9 @@
                             id="add-recipient-data"
                             class="round-btn"
                             required
-                            on:change={async (event) => {
+                            on:change={(event) => {
                                 addAttribute(i, event.target.value);
                                 event.target.value = 'none';
-                                await tick();
-                                con[con.length - 1].input.focus();
                             }}
                         >
                             {#each Object.entries(ALLOWED_ATTRIBUTE_TYPES) as [group, types]}
@@ -340,17 +331,6 @@
             width: 25px;
             align-items: center;
             justify-content: center;
-        }
-
-        input {
-            line-height: 17px;
-            border: 0px solid black;
-            border-left: 0;
-            border-right: 0;
-            padding: 3px;
-            font-size: 12px;
-            background-color: var(--pg-white);
-            color: black;
         }
     }
 
