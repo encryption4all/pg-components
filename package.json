@@ -1,5 +1,5 @@
 {
-    "name": "pg-components",
+    "name": "@e4a/pg-components",
     "version": "0.0.2",
     "license": "MIT",
     "scripts": {
