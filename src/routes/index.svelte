@@ -23,4 +23,10 @@
     };
 </script>
 
-<AttributeForm {initialPolicy} {onSubmit} {onPolicyChange} submitButton={{ customText: 'Send' }} />
+<AttributeForm
+    {initialPolicy}
+    {onSubmit}
+    {onPolicyChange}
+    submitButton={{ customText: 'Custom text' }}
+    lang={'nl'}
+/>
