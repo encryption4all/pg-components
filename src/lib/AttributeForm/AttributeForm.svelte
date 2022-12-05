@@ -10,10 +10,10 @@
 </script>
 
 <script lang="ts">
-    import './i18n';
+    import initWithLang from './i18n';
     import { ALLOWED_ATTRIBUTE_TYPES } from './consts';
     import type { AttributeType } from './consts';
-    import { _, isLoading } from 'svelte-i18n';
+    import { _, isLoading, locale } from 'svelte-i18n';
     import TypedAttributeValue from './TypedAttributeValue.svelte';
     import EmailInput from './EmailInput.svelte';
     import { tick } from 'svelte';
@@ -31,6 +31,7 @@
         phone: "data:image/svg+xml,%3Csvg width='16' height='16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6.17 9.818C4.381 8.036 3.246 5.765 4.59 4.414c.029-.03.059-.06.103-.089.512-.379.987-.468 1.3-.015l.942 1.329c.319.453.252.727-.104 1.091l-.297.32c-.096.103-.06.237-.015.326.156.26.527.72.95 1.143.43.43.876.787 1.143.95.104.06.26.074.342-.015l.304-.297c.342-.341.639-.415 1.091-.104.616.438.995.698 1.351.958.446.334.35.854.008 1.24-.045.051-.082.103-.134.155-1.343 1.344-3.622.208-5.404-1.588Z' fill='%23fff'/%3E%3C/svg%3E"
     };
 
+    export let lang = 'en';
     export let initialPolicy: Policy = {};
     export let onPolicyChange: (policy: Policy) => Promise<void> = () => {};
     export let submitButton: boolean | { [customText]: string } = false;
@@ -48,6 +49,8 @@
                 ],
                 [] as PolicyList
             );
+
+            initWithLang(lang);
             init = true;
         }
     }
