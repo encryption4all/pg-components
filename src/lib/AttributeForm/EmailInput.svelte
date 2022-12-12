@@ -27,5 +27,9 @@
         font-size: 12px;
         background-color: var(--pg-white);
         color: black;
+
+        &:focus {
+            outline: none;
+        }
     }
 </style>
