@@ -111,7 +111,7 @@
 </script>
 
 <svelte:window
-    on:keydown|preventDefault={(e) => {
+    on:keydown={(e) => {
         if (e.key === 'Enter') handleSubmit();
     }}
 />
