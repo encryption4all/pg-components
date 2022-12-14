@@ -4,11 +4,11 @@
 
     const initialPolicy = {
         'leon.botros@gmail.com': [
-            { t: 'pbdf.sidn-pbdf.mobilenumber.mobilenumber', v: '+31612345678' }
+            { t: 'irma-demo.sidn-pbdf.mobilenumber.mobilenumber', v: '+31612345678' }
         ],
         'l.botros@cs.ru.nl': [
-            { t: 'pbdf.sidn-pbdf.mobilenumber.mobilenumber', v: '+31612345678' },
-            { t: 'pbdf.gemeente.personalData.surname', v: 'Botros' }
+            { t: 'irma-demo.sidn-pbdf.mobilenumber.mobilenumber', v: '+31612345678' },
+            { t: 'irma-demo.gemeente.personalData.surname', v: 'Botros' }
         ]
     };
 
