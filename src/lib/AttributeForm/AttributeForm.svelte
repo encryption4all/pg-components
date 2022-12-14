@@ -110,6 +110,12 @@
     };
 </script>
 
+<svelte:window
+    on:keydown|preventDefault={(e) => {
+        if (e.key === 'Enter') handleSubmit();
+    }}
+/>
+
 {#if $isLoading}
     Loading...
 {:else}
