@@ -66,7 +66,7 @@
 
         const res: { [key: string]: AttributeCon } = {};
         for (const { id, con } of policy) {
-            res[id] = [{ t: 'pbdf.sidn-pbdf.email.email', v: id }];
+            res[id] = [{ t: 'pbdf.sidn-pbdf.email.email', v: id.toLowerCase() }];
             for (let { t, v } of con) {
                 if (t === 'pbdf.gemeente.personalData.dateofbirth') v = v.replace(/\.|\//g, '-');
                 res[id].push({ t, v });
