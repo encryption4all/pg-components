@@ -14,13 +14,13 @@ const config = {
     kit: {
         adapter: adapter(),
 
-        package: {
-            dir: 'package',
-            emitTypes: true,
-            files: () => true
-        },
-
         files: { lib: './src/lib' }
+    },
+
+    package: {
+        dir: 'package',
+        emitTypes: true,
+        files: () => true
     }
 };
 

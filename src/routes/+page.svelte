@@ -2,8 +2,6 @@
     import AttributeForm from '$lib/AttributeForm/AttributeForm.svelte';
     import type Policy from '$lib/AttributeForm/AttributeForm.svelte';
 
-    import './index.css';
-
     const initialPolicy = {
         'leon.botros@gmail.com': [
             { t: 'pbdf.sidn-pbdf.mobilenumber.mobilenumber', v: '+31612345678' }
