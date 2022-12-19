@@ -1,7 +1,8 @@
 <script lang="ts">
     import { onMount } from 'svelte';
 
-    export let value;
+    export let value = '';
+
     let element;
     onMount(() => element.focus());
 </script>

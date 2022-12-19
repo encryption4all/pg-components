@@ -12,15 +12,13 @@ const config = {
     ],
 
     kit: {
-        adapter: adapter(),
-
-        files: { lib: './src/lib' }
+        adapter: adapter()
     },
 
     package: {
         dir: 'package',
         emitTypes: true,
-        files: () => true
+        files: (path) => !path.endsWith('story.svelte')
     }
 };
 
