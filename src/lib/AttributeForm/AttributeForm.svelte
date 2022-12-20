@@ -231,7 +231,7 @@
     </form>
 {/if}
 
-<style type="scss">
+<style lang="scss">
     @import './../app.css';
 
     form {
