@@ -2,6 +2,8 @@
     import type { AttributeType } from './consts';
     import { tick, onMount } from 'svelte';
 
+    import '../app.css';
+
     let element;
 
     export let focused: boolean = false;
@@ -46,8 +48,6 @@
 {/if}
 
 <style lang="scss">
-    @import './../app.css';
-
     input,
     select {
         line-height: 17px;
