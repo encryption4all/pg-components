@@ -1,6 +1,7 @@
 <script lang="ts">
     import AttributeForm from '$lib/AttributeForm/AttributeForm.svelte';
-    import Logo from '$lib/images/pg_logo_white.svg';
+    import Logo from '$lib/images/pg_logo_no_text.svg';
+    import LogoGrey from '$lib/images/pg_logo_grey_no_text.svg';
 
     export let enabled = true;
     export let extended = false;
@@ -24,7 +25,7 @@
 
 <div>
     <div class="pg-bar" {enabled}>
-        <img class="icon" src={Logo} alt="PostGuard Logo" />
+        <img class="icon" src={enabled ? Logo : LogoGrey} alt="PostGuard Logo" />
         <label class="switch">
             <input type="checkbox" bind:checked={enabled} />
             <span class="slider round" />
