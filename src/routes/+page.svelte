@@ -21,9 +21,9 @@
         console.log('The policy has changed: ', policy);
     };
 
-    const onSwitched = (on: boolean) => {
-        console.log(on ? 'on' : 'off');
-    };
+    let enabled = false;
+
+    $: console.log('enabled: ', enabled);
 </script>
 
-<TopBar lang={'nl'} {onSwitched} formProps={{ initialPolicy, onSubmit, onPolicyChange }} />
+<TopBar lang={'nl'} bind:enabled formProps={{ initialPolicy, onSubmit, onPolicyChange }} />

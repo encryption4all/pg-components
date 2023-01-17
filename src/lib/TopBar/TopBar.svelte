@@ -6,12 +6,9 @@
     export let enabled = true;
     export let extended = false;
     export let lang = 'en';
-    export let onSwitched: (boolean) => void;
     export let formProps = {} || undefined;
 
     let prevExtended = false;
-
-    $: onSwitched(enabled);
 
     $: if (!enabled) {
         prevExtended = extended;
