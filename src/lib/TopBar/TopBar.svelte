@@ -2,6 +2,8 @@
     import AttributeForm from '$lib/AttributeForm/AttributeForm.svelte';
     import Logo from '$lib/images/pg_logo_no_text.svg';
     import LogoGrey from '$lib/images/pg_logo_grey_no_text.svg';
+    import initWithLang from '$lib/i18n';
+    import { _, isLoading } from 'svelte-i18n';
 
     export let enabled = true;
     export let extended = false;
@@ -15,51 +17,51 @@
         extended = false;
     }
 
-    $: if (enabled) {
-        extended = prevExtended;
-    }
+    $: if (enabled) extended = prevExtended;
+
+    initWithLang(lang);
 </script>
 
-<div>
-    <div class="pg-bar" {enabled}>
-        <img class="icon" src={enabled ? Logo : LogoGrey} alt="PostGuard Logo" />
-        <label class="switch">
-            <input type="checkbox" bind:checked={enabled} />
-            <span class="slider round" />
-        </label>
-        <p>
-            {@html lang === 'en'
-                ? `PostGuard is turned ${
-                      enabled ? '<b>on</b>.' : '<b>off</b>. Sensitive content? Turn PostGuard on.'
-                  }`
-                : `PostGuard staat ${
-                      enabled
-                          ? '<b>aan</b>.'
-                          : '<b>uit</b>. Gevoelige informatie? Zet PostGuard aan.'
-                  }`}
-        </p>
-        <button hidden={!enabled} on:click={() => (extended = !extended)}>⚙</button>
-    </div>
-    {#if formProps}
-        <div id="form" hidden={!extended}>
-            <AttributeForm {...{ lang, ...formProps }} />
+{#if $isLoading}{:else}
+    <div>
+        <div class="pg-bar" {enabled}>
+            <img class="icon" src={enabled ? Logo : LogoGrey} alt="PostGuard Logo" />
+            <label class="switch">
+                <input type="checkbox" bind:checked={enabled} />
+                <span class="slider round" />
+            </label>
+            <p id="bar-text">
+                {@html $_(enabled ? 'enabledText' : 'disabledText')}
+            </p>
+            <button hidden={!enabled} on:click={() => (extended = !extended)}
+                >{$_('attributeSelection')}</button
+            >
         </div>
-    {/if}
-</div>
+        {#if formProps}
+            <div id="form" hidden={!extended}>
+                <AttributeForm {...{ lang, ...formProps }} />
+            </div>
+        {/if}
+    </div>
+{/if}
 
 <style lang="scss">
     @import './../app.css';
 
+    #bar-text {
+        font-size: 16px;
+    }
+
     button {
-        height: 30px;
-        width: 30px;
+        height: 25px;
         margin-left: auto;
         margin-right: 1rem;
-        background: transparent;
+        padding: 0 15px;
+        background: var(--pg-blue);
         outline: none;
-        border: none;
+        border: 0px solid black;
+        border-radius: 15px;
         color: inherit;
-        font-size: 22px;
     }
 
     #form {
@@ -79,13 +81,12 @@
         font-family: 'Overpass';
         font-style: normal;
         margin-left: 1rem;
-        font-size: 14px;
     }
 
     .pg-bar > .icon {
         padding: 0;
         margin: 3px 10px 3px 15px;
-        width: 64px;
+        width: 35px;
         height: 35px;
     }
 

@@ -11,9 +11,9 @@
 
 <script lang="ts">
     import initWithLang from '$lib/i18n';
+    import { _, isLoading, locale } from 'svelte-i18n';
     import { ALLOWED_ATTRIBUTE_TYPES } from './consts';
     import type { AttributeType } from './consts';
-    import { _, isLoading, locale } from 'svelte-i18n';
     import TypedAttributeValue from './TypedAttributeValue.svelte';
     import EmailInput from './EmailInput.svelte';
     import { tick } from 'svelte';
@@ -120,9 +120,7 @@
     }}
 />
 
-{#if $isLoading}
-    Loading...
-{:else}
+{#if $isLoading}{:else}
     <form bind:this={form} on:submit|preventDefault={handleSubmit}>
         <div class="attribute-row" id="instruction">{$_('instruction')}</div>
         <div id="row-container">
@@ -258,7 +256,6 @@
         align-items: center;
         padding: 7px 0 7px 0;
         gap: 5px;
-        font-size: 12px;
 
         &.remove-active {
             // todo
@@ -273,11 +270,13 @@
     }
 
     #button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         border: 0px;
         border-left: 0;
         border-radius: 0 15px 15px 0;
         width: 25px;
-        height: 23px;
         background-color: var(--pg-white);
 
         button.remove {
@@ -323,7 +322,6 @@
 
     div#recipient {
         display: flex;
-        align-items: center;
 
         &:hover > #button-container > button.remove {
             visibility: visible;
@@ -337,7 +335,6 @@
 
         div:not(#button-container) {
             display: flex;
-            height: 17px;
             background-color: var(--pg-blue);
             width: 25px;
             align-items: center;
