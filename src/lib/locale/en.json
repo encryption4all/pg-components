@@ -31,5 +31,8 @@
     "instruction": "Specify data recipient(s) must prove to decrypt and read the email (content, subject and attachments).",
     "addAttribute": "add recipient data",
     "addRecipient": "add recipient",
-    "submit": "Submit"
+    "submit": "Submit",
+    "enabledText": "PostGuard is turned <b>on</b>.",
+    "disabledText": "PostGuard is turned <b>off</b>. Sensitive content? Turn PostGuard on.",
+    "attributeSelection": "Manage access"
 }

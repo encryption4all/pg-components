@@ -1,6 +1,7 @@
 <script lang="ts">
     import AttributeForm from '$lib/AttributeForm/AttributeForm.svelte';
     import type Policy from '$lib/AttributeForm/AttributeForm.svelte';
+    import TopBar from '$lib/TopBar/TopBar.svelte';
 
     const initialPolicy = {
         'leon.botros@gmail.com': [
@@ -19,12 +20,10 @@
     const onPolicyChange = async (policy: Policy) => {
         console.log('The policy has changed: ', policy);
     };
+
+    let enabled = false;
+
+    $: console.log('enabled: ', enabled);
 </script>
 
-<AttributeForm
-    {initialPolicy}
-    {onSubmit}
-    {onPolicyChange}
-    submitButton={{ customText: 'Custom text' }}
-    lang={'nl'}
-/>
+<TopBar bind:enabled formProps={{ initialPolicy, onSubmit, onPolicyChange }} />

@@ -24,8 +24,11 @@
         border-left: 0;
         border-right: 0;
         padding: 3px;
-        font-size: 12px;
         background-color: var(--pg-white);
         color: black;
+
+        &:focus {
+            outline: none;
+        }
     }
 </style>
