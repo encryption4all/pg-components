@@ -26,4 +26,4 @@
     $: console.log('enabled: ', enabled);
 </script>
 
-<TopBar lang={'nl'} bind:enabled formProps={{ initialPolicy, onSubmit, onPolicyChange }} />
+<TopBar bind:enabled formProps={{ initialPolicy, onSubmit, onPolicyChange }} />

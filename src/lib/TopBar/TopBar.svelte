@@ -2,7 +2,7 @@
     import AttributeForm from '$lib/AttributeForm/AttributeForm.svelte';
     import Logo from '$lib/images/pg_logo_no_text.svg';
     import LogoGrey from '$lib/images/pg_logo_grey_no_text.svg';
-    import initWithLang from '$lib/i18n';
+    import initLocale from '$lib/i18n';
     import { _, isLoading } from 'svelte-i18n';
 
     export let enabled = true;
@@ -19,7 +19,7 @@
 
     $: if (enabled) extended = prevExtended;
 
-    initWithLang(lang);
+    initLocale(lang);
 </script>
 
 {#if $isLoading}{:else}

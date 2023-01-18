@@ -10,7 +10,7 @@
 </script>
 
 <script lang="ts">
-    import initWithLang from '$lib/i18n';
+    import initLocale from '$lib/i18n';
     import { _, isLoading, locale } from 'svelte-i18n';
     import { ALLOWED_ATTRIBUTE_TYPES } from './consts';
     import type { AttributeType } from './consts';
@@ -51,7 +51,7 @@
                 [] as PolicyList
             );
 
-            initWithLang(lang);
+            initLocale(lang);
             init = true;
         }
     }
