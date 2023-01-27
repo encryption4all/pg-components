@@ -157,7 +157,7 @@
                                     style={typ?.img
                                         ? `background-image: url("${
                                               imgs[typ.img]
-                                          }"); padding-left: ${ar.focused ? '25px' : '20px'}`
+                                          }"); padding-left: ${ar.focused ? '2.25em' : '1.75em'}`
                                         : ''}
                                 >
                                     {#each Object.entries(ALLOWED_ATTRIBUTE_TYPES) as [group, types]}
