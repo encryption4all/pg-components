@@ -120,7 +120,7 @@
     }}
 />
 
-{#if $isLoading}{:else}
+{#if !$isLoading}
     <form bind:this={form} on:submit|preventDefault={handleSubmit}>
         <div class="attribute-row" id="instruction">{$_('instruction')}</div>
         <div id="row-container">

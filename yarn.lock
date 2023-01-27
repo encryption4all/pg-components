@@ -2552,11 +2552,6 @@ svelte-check@^2.10.2:
     svelte-preprocess "^4.0.0"
     typescript "*"
 
-svelte-collapse@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/svelte-collapse/-/svelte-collapse-0.1.1.tgz#3b041a56f10ed92e6f0298c6b05b017564f8e002"
-  integrity sha512-mQ3A7g8vPnZOVx/m+sDJmxOpfpHVb6KbOUrgE2+WUmirlB6d5/Hzl9alXmmsFkRXb9yLuCPvxGSBykcduUCWuw==
-
 svelte-dev-helper@^1.1.9:
   version "1.1.9"
   resolved "https://registry.npmjs.org/svelte-dev-helper/-/svelte-dev-helper-1.1.9.tgz#7d187db5c6cdbbd64d75a32f91b8998bde3273c3"
