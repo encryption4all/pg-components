@@ -29,10 +29,13 @@
         "health": "Health"
     },
     "instruction": "Specify data recipient(s) must prove to decrypt and read the email (content, subject and attachments).",
+    "instructionSign": "Sign the email so that the recipient can really trust that it is your message.",
     "addAttribute": "add recipient data",
+    "addAttributeSign": "add more data",
     "addRecipient": "add recipient",
     "submit": "Submit",
     "enabledText": "PostGuard is turned <b>on</b>.",
     "disabledText": "PostGuard is turned <b>off</b>. Sensitive content? Turn PostGuard on.",
-    "attributeSelection": "Manage access"
+    "attributeSelection": "Manage access",
+    "attributeSelectionSign": "Sign as"
 }
