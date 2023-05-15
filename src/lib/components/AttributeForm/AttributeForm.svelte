@@ -5,9 +5,8 @@
     import { encPolicy, signPolicy } from './stores';
     import AttributeRow from './AttributeRow.svelte';
     import { setContext } from 'svelte';
-    import Sign from '$lib/images/sign.svg';
 
-    import '$lib/app.css';
+    import './../../app.css';
 
     export let lang = 'en';
     export let initialPolicy: Policy = {};

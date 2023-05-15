@@ -15,11 +15,11 @@ const config = {
         adapter: adapter()
     },
 
-    package: {
-        dir: 'package',
-        emitTypes: true,
-        files: (path) => !path.endsWith('story.svelte')
-    }
+//    package: {
+//        dir: 'package',
+//        emitTypes: true,
+//        files: (path) => !path.endsWith('story.svelte')
+//    }
 }
 
 export default config

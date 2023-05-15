@@ -1,7 +1,7 @@
 <script lang="ts">
     import { tick, onMount } from 'svelte'
 
-    import '$lib/app.css'
+    import './../../app.css'
 
     let element: HTMLElement
 
