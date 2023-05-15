@@ -62,5 +62,6 @@
 
     input {
         height: 100%;
+        padding: 0px 2px;
     }
 </style>

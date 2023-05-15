@@ -35,10 +35,12 @@
     bind:enabled
     formProps={{
         initialPolicy,
-        onPolicyChange
+        onPolicyChange,
+        onSubmit
     }}
     formPropsSign={{
         initialPolicy: initialPolicySign,
-        onPolicyChange: onSigningPolicyChanged
+        onPolicyChange: onSigningPolicyChanged,
+        onSubmit
     }}
 />

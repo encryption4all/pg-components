@@ -29,7 +29,6 @@
     div.attribute-request {
         display: flex;
         height: 1.5em;
-        overflow: hidden;
 
         .left-border {
             display: flex;
@@ -38,6 +37,7 @@
             border: 0px;
             border-radius: 15px 0 0 15px;
             overflow: hidden;
+            min-width: 1.5em;
         }
 
         &:hover > .right-border > button.remove {

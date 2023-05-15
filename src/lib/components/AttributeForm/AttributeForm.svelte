@@ -46,6 +46,7 @@
     $: onPolicyChange(validatedPolicy);
 
     function validateForm(auto: boolean = true): Policy | undefined {
+        console.log(`checking form: auto = ${auto}`)
         if (!form.checkValidity()) {
             if (!auto) form.reportValidity();
             return undefined;

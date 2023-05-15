@@ -1,0 +1,43 @@
+/* Write your global styles here, in PostCSS syntax */
+
+@font-face {
+    font-family: 'Overpass';
+    src: url('./fonts/Overpass-Regular.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Overpass';
+    src: url('./fonts/Overpass-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: bold;
+}
+
+:root {
+    --pg-white: #f0f0f0;
+    --pg-blue: #017aff;
+    --pg-dark-blue: #20446b;
+    --pg-border-color: #6080a3;
+    --pg-grey: #606060;
+}
+
+* {
+    font-family: 'Overpass';
+    font-style: normal;
+}
+
+.left-border {
+    border: 0px solid black;
+    border-radius: 15px 0 0 15px;
+    padding: 3px;
+}
+
+.round-btn,
+button {
+    border: 0px solid black;
+    border-radius: 15px;
+    padding: 3px 10px 3px 10px;
+    background-color: var(--pg-blue);
+    color: var(--pg-white);
+}

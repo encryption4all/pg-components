@@ -1,39 +1,39 @@
 <script lang="ts">
-    import { ALLOWED_ATTRIBUTE_TYPES } from './consts';
-    import AttributeValue from './AttributeValue.svelte';
-    import { _ } from 'svelte-i18n';
-    import { getContext } from 'svelte';
-    import AttributeRequest from './AttributeRequest.svelte';
+    import { ALLOWED_ATTRIBUTE_TYPES } from './consts'
+    import AttributeValue from './AttributeValue.svelte'
+    import { _ } from 'svelte-i18n'
+    import { getContext } from 'svelte'
+    import AttributeRequest from './AttributeRequest.svelte'
 
-    export let i: number;
+    export let i: number
 
-    const { policy, signing } = getContext('store');
+    const { policy, signing } = getContext('store')
 
-    $: con = $policy[i].con;
+    $: con = $policy[i].con
 
     $: possibleChoices = Object.entries(ALLOWED_ATTRIBUTE_TYPES).flatMap(([group, types]) => {
-        return types.filter(({ ident }) => !con.some(({ t }) => ident === t));
-    });
+        return types.filter(({ ident }) => !con.some(({ t }) => ident === t))
+    })
 
     const addAttribute = (t: AttributeRequest) => {
         policy.update((p: PolicyListItem[]) => {
-            p[i].con.push({ t, v: '', focused: true });
-            return p;
-        });
-    };
+            p[i].con.push({ t, v: '', focused: true })
+            return p
+        })
+    }
 
     const removeAttribute = (j: number) => {
         policy.update((p: PolicyListItem[]) => {
-            p[i].con = p[i].con.filter((item, idx) => idx !== j);
-            return p;
-        });
-    };
+            p[i].con = p[i].con.filter((item, idx) => idx !== j)
+            return p
+        })
+    }
 
     // Helper function to get the more information of the type in an AttributeRequest.
     function typeOf(ar: AttributeRequest): AttributeType | undefined {
         for (const [, groupList] of Object.entries(ALLOWED_ATTRIBUTE_TYPES)) {
             for (const typ of groupList) {
-                if (ar.t === typ.ident) return typ;
+                if (ar.t === typ.ident) return typ
             }
         }
     }
@@ -46,11 +46,11 @@
             <select
                 id="attribute-request"
                 slot="type"
-                required
                 bind:value={ar.t}
                 on:change={() => {
-                    ar.v = '';
-                    ar.focused = false;
+                    ar.v = ''
+                    ar.focused = false
+                    console.log('selected: ', ar.t)
                 }}
                 on:focus={() => (ar.focused = true)}
                 style={typ?.img
@@ -59,13 +59,8 @@
                       }`
                     : ''}
             >
-                <option value="" disabled selected hidden />
                 {#each possibleChoices as { ident }}
-                    <option
-                        required
-                        value={ident}
-                        label={ar.focused ? $_(`attributeTypes.${ident}`) : ''}
-                    />
+                    <option value={ident} label={ar.focused ? $_(`attributeTypes.${ident}`) : ''} />
                 {/each}
             </select>
             <AttributeValue slot="value" bind:value={ar.v} bind:focused={ar.focused} {typ} />
@@ -77,8 +72,8 @@
             class="round-btn"
             required
             on:change={(event) => {
-                addAttribute(event.target.value);
-                event.target.value = 'none';
+                addAttribute(event.target.value)
+                event.target.value = 'none'
             }}
         >
             <option value="none" disabled selected hidden
@@ -97,7 +92,6 @@
         flex-direction: row;
         flex-wrap: wrap;
         gap: 5px;
-        margin-left: 5px;
     }
 
     select#attribute-request {
