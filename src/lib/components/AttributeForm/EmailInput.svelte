@@ -49,6 +49,7 @@
     }
 
     input {
+        padding: 0px 2px;
         height: 100%;
         border: 0px solid black;
         background-color: var(--pg-white);
