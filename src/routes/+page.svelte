@@ -3,17 +3,17 @@
     import TopBar from '$lib/components/TopBar/TopBar.svelte'
 
     const initialPolicy = {
-        'leon.botros@gmail.com': [
+        'alice@example.com': [
             { t: 'pbdf.sidn-pbdf.mobilenumber.mobilenumber', v: '+31612345678' }
         ],
-        'l.botros@cs.ru.nl': [
+        'bob@example.com': [
             { t: 'pbdf.sidn-pbdf.mobilenumber.mobilenumber', v: '+31612345678' },
-            { t: 'pbdf.gemeente.personalData.surname', v: 'Botros' }
+            { t: 'pbdf.gemeente.personalData.surname', v: 'Bob' }
         ]
     }
 
     const initialPolicySign = {
-        'leon.botros@gmail.com': [{ t: 'pbdf.sidn-pbdf.email.email', v: 'leon.botros@gmail.com' }]
+        'alice@example.com': [{ t: 'pbdf.sidn-pbdf.email.email', v: 'alice@example.com' }]
     }
 
     const onSubmit = async (policy: Policy) => {

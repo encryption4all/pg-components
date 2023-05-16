@@ -5,14 +5,14 @@
 </script>
 
 <div class="attribute-request">
-    <div class="left-border">
+    <div class="left">
         <slot name="type" />
     </div>
     <div>
         <slot name="value" />
     </div>
-    <div class="right-border">
-        {#if removable}
+    {#if removable}
+        <div class="right">
             <button
                 class="remove"
                 on:click|preventDefault={() => onRemove()}
@@ -21,38 +21,36 @@
                 on:mouseout={() => (removeActive = false)}
                 on:blur={() => void 0}
             />
-        {/if}
-    </div>
+        </div>
+    {/if}
 </div>
 
 <style lang="scss">
     div.attribute-request {
         display: flex;
+        width: fit-content;
         height: 1.5em;
+        overflow: hidden;
+        border-radius: 15px;
+        border: 0px;
 
-        .left-border {
+        .left {
             display: flex;
             justify-content: center;
             background-color: var(--pg-blue);
-            border: 0px;
-            border-radius: 15px 0 0 15px;
-            overflow: hidden;
             min-width: 1.5em;
         }
 
-        &:hover > .right-border > button.remove {
+        &:hover > .right > button.remove {
             visibility: visible;
             opacity: 1;
         }
 
-        .right-border {
+        .right {
             min-width: 1.5em;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 0px;
-            border-left: 0;
-            border-radius: 0 15px 15px 0;
             background-color: var(--pg-white);
 
             button.remove {

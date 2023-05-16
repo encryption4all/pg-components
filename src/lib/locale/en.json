@@ -28,7 +28,7 @@
         "education": "Education",
         "health": "Health"
     },
-    "instruction": "Specify data recipient(s) must prove to decrypt and read the email (content, subject and attachments).",
+    "instruction": "Specify data recipient(s) must prove to decrypt and read the email.",
     "instructionSign": "Sign the email so that the recipient can really trust that it is your message.",
     "addAttribute": "add recipient data",
     "addAttributeSign": "add more data",

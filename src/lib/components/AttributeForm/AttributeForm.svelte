@@ -1,26 +1,26 @@
 <script lang="ts">
-    import initLocale from '$lib/i18n';
-    import { _, isLoading } from 'svelte-i18n';
-    import { EMAIL } from './consts';
-    import { encPolicy, signPolicy } from './stores';
-    import AttributeRow from './AttributeRow.svelte';
-    import { setContext } from 'svelte';
+    import initLocale from '$lib/i18n'
+    import { _, isLoading } from 'svelte-i18n'
+    import { EMAIL } from './consts'
+    import { encPolicy, signPolicy } from './stores'
+    import AttributeRow from './AttributeRow.svelte'
+    import { setContext } from 'svelte'
 
-    import './../../app.css';
+    import './../../app.css'
 
-    export let lang = 'en';
-    export let initialPolicy: Policy = {};
-    export let onPolicyChange: (policy: Policy | undefined) => Promise<void> = async () => {};
-    export let submitButton: boolean | { [customText: string]: string } = false;
-    export let onSubmit: (policy: Policy) => Promise<void>;
-    export let signing = false;
+    export let lang = 'en'
+    export let initialPolicy: Policy = {}
+    export let onPolicyChange: (policy: Policy | undefined) => Promise<void> = async () => {}
+    export let submitButton: boolean | { [customText: string]: string } = false
+    export let onSubmit: (policy: Policy) => Promise<void>
+    export let signing = false
 
     // Set the store.
-    const policy = signing ? signPolicy : encPolicy;
-    setContext('store', { policy, signing });
+    const policy = signing ? signPolicy : encPolicy
+    setContext('store', { policy, signing })
 
-    let init = false;
-    let form: HTMLFormElement;
+    let init = false
+    let form: HTMLFormElement
 
     $: {
         if (!init) {
@@ -33,61 +33,61 @@
                     ...total
                 ],
                 []
-            );
+            )
 
-            policy.set(initial);
+            policy.set(initial)
 
-            initLocale(lang);
-            init = true;
+            initLocale(lang)
+            init = true
         }
     }
 
-    $: validatedPolicy = form && $policy ? validateForm() : undefined;
-    $: onPolicyChange(validatedPolicy);
+    $: validatedPolicy = form && $policy ? validateForm() : undefined
+    $: onPolicyChange(validatedPolicy)
 
     function validateForm(auto: boolean = true): Policy | undefined {
         if (!form.checkValidity()) {
-            if (!auto) form.reportValidity();
-            return undefined;
+            if (!auto) form.reportValidity()
+            return undefined
         }
 
-        const res: { [key: string]: AttributeCon } = {};
+        const res: { [key: string]: AttributeCon } = {}
         for (const { id, con } of $policy) {
-            res[id] = [{ t: EMAIL, v: id.toLowerCase() }];
+            res[id] = [{ t: EMAIL, v: id.toLowerCase() }]
             for (let { t, v } of con) {
-                if (t === 'pbdf.gemeente.personalData.dateofbirth') v = v.replace(/\.|\//g, '-');
-                res[id].push({ t, v });
+                if (t === 'pbdf.gemeente.personalData.dateofbirth') v = v.replace(/\.|\//g, '-')
+                res[id].push({ t, v })
             }
         }
 
-        return res;
+        return res
     }
 
     const handleSubmit = async () => {
-        const validated = validateForm(false);
-        if (validated) await onSubmit(validated);
-    };
+        const validated = validateForm(false)
+        if (validated) await onSubmit(validated)
+    }
 
     const addRecipient = () => {
         policy.update((p) => {
-            p.push({ id: '', con: [] });
-            return p;
-        });
-    };
+            p.push({ id: '', con: [] })
+            return p
+        })
+    }
 </script>
 
 <svelte:window
     on:keydown={(e) => {
         if (e.key === 'Enter') {
-            e.preventDefault();
-            handleSubmit();
+            e.preventDefault()
+            handleSubmit()
         }
     }}
 />
 
 {#if !$isLoading}
     <form bind:this={form} on:submit|preventDefault={handleSubmit}>
-        <div class="attribute-row" id="instruction">
+        <div id="instruction">
             {$_(`instruction${signing ? 'Sign' : ''}`)}
         </div>
         <div id="row-container">
@@ -99,12 +99,10 @@
                     >{$_('addRecipient')}</button
                 >
             {/if}
-            {#if submitButton}
-                <button class="button" type="submit"
-                    >{submitButton.customText ?? $_('submit')}</button
-                >
-            {/if}
         </div>
+        {#if submitButton}
+            <button class="button" type="submit">{submitButton.customText ?? $_('submit')}</button>
+        {/if}
     </form>
 {/if}
 
@@ -113,10 +111,12 @@
         background-color: var(--pg-dark-blue);
         border-bottom: 1px solid var(--pg-border-color);
         padding: 0.25em 0;
+        display: flex;
+        flex-direction: column;
     }
 
     #instruction {
-        padding-left: 10px;
+        padding: 5px 0 0 10px;
         color: var(--pg-white);
     }
 
@@ -130,6 +130,8 @@
     }
 
     button[type='submit'] {
-        float: right;
+        margin: 0.25em 0.5em;
+        width: fit-content;
+        align-self: flex-end;
     }
 </style>

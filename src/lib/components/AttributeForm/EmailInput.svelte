@@ -30,7 +30,9 @@
         size={value ? value.length * 0.8 : 10}
         bind:value
         bind:this={element}
-        style={readonly ? 'cursor: default' : ''}
+        style={`cursor: default; background-color: var(--pg-${
+            readonly ? 'blue' : 'white'
+        }); color: var(--pg-${readonly ? 'white' : 'black'}`}
         {readonly}
     />
 </AttributeRequest>
@@ -41,6 +43,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        height: 100%;
 
         img {
             width: 20px;
@@ -49,10 +52,10 @@
     }
 
     input {
+        width: 100%;
         padding: 0px 2px;
         height: 100%;
         border: 0px solid black;
-        background-color: var(--pg-white);
         color: black;
 
         &:focus {

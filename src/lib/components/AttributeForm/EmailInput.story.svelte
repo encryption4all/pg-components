@@ -14,6 +14,6 @@
         <EmailInput {input} {onRemove} />
     </Hst.Variant>
     <Hst.Variant title="disabled">
-        <EmailInput {input} {onRemove} removable={false} readonly value={'test@exameple.com'} />
+        <EmailInput {input} {onRemove} removable={false} readonly value={'test@example.com'} />
     </Hst.Variant>
 </Hst.Story>
