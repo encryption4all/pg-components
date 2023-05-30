@@ -5,14 +5,14 @@
 </script>
 
 <div class="attribute-request">
-    <div class="left">
+    <div class="left-container">
         <slot name="type" />
     </div>
     <div>
         <slot name="value" />
     </div>
     {#if removable}
-        <div class="right">
+        <div class="right-container">
             <button
                 class="remove"
                 on:click|preventDefault={() => onRemove()}
@@ -34,19 +34,20 @@
         border-radius: 15px;
         border: 0px;
 
-        .left {
+        .left-container {
             display: flex;
             justify-content: center;
+            align-items: center;
             background-color: var(--pg-blue);
             min-width: 1.5em;
         }
 
-        &:hover > .right > button.remove {
+        &:hover > .right-container > button.remove {
             visibility: visible;
             opacity: 1;
         }
 
-        .right {
+        .right-container {
             min-width: 1.5em;
             display: flex;
             justify-content: center;
