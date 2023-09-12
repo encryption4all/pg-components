@@ -1,6 +1,6 @@
 {
     "name": "@e4a/pg-components",
-    "version": "0.0.6",
+    "version": "0.0.7-rc.0",
     "license": "MIT",
     "scripts": {
         "dev": "vite dev",
