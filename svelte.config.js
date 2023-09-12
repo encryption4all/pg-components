@@ -1,5 +1,5 @@
-import adapter from '@sveltejs/adapter-auto';
-import preprocess from 'svelte-preprocess';
+import adapter from '@sveltejs/adapter-auto'
+import preprocess from 'svelte-preprocess'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -15,11 +15,11 @@ const config = {
         adapter: adapter()
     },
 
-    package: {
-        dir: 'package',
-        emitTypes: true,
-        files: (path) => !path.endsWith('story.svelte')
-    }
-};
+//    package: {
+//        dir: 'package',
+//        emitTypes: true,
+//        files: (path) => !path.endsWith('story.svelte')
+//    }
+}
 
-export default config;
+export default config

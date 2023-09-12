@@ -1,5 +1,5 @@
-import { sveltekit } from '@sveltejs/kit/vite';
-import { HstSvelte } from '@histoire/plugin-svelte';
+import { sveltekit } from '@sveltejs/kit/vite'
+import { HstSvelte } from '@histoire/plugin-svelte'
 
 /** @type {import('vite').UserConfig} */
 const config = {
@@ -16,6 +16,6 @@ const config = {
             ]
         }
     }
-};
+}
 
-export default config;
+export default config

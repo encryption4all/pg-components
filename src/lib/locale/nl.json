@@ -28,11 +28,13 @@
         "education": "Educatie",
         "health": "Gezondheind"
     },
-    "instruction": "Specificeer data die de ontvanger(s) moeten laten zien voor ze mail kunnen ontsleutelen (inclusief inhoud, onderwerp en bijgevoegde bestanden).",
+    "instruction": "Specificeer data die de ontvanger(s) moeten laten zien voor ze mail kunnen ontsleutelen.",
+    "instructionSign": "Onderteken de email zodat de ontvanger zeker weet van wie het bericht komt.",
     "addAttribute": "voeg data toe",
     "addRecipient": "voeg een ontvanger toe",
     "submit": "Klaar",
     "enabledText": "PostGuard staat <b>aan</b>.",
     "disabledText": "PostGuard staat <b>uit</b>. Gevoelige informatie? Zet PostGuard aan.",
-    "attributeSelection": "Toegang beheren"
+    "attributeSelection": "Toegang beheren",
+    "attributeSelectionSign": "Onderteken"
 }

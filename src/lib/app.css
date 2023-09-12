@@ -26,3 +26,18 @@
     font-family: 'Overpass';
     font-style: normal;
 }
+
+.left-border {
+    border: 0px solid black;
+    border-radius: 15px 0 0 15px;
+    padding: 3px;
+}
+
+.round-btn,
+button {
+    border: 0px solid black;
+    border-radius: 15px;
+    padding: 3px 10px 3px 10px;
+    background-color: var(--pg-blue);
+    color: var(--pg-white);
+}
