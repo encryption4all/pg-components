@@ -13,7 +13,7 @@
     }
 
     const initialPolicySign = {
-        'alice@example.com': [{ t: 'pbdf.sidn-pbdf.email.email', v: 'alice@example.com' }]
+        'alice@example.com': [{ t: 'pbdf.sidn-pbdf.email.email'}]
     }
 
     const onSubmit = async (policy: Policy) => {
