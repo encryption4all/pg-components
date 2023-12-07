@@ -53,10 +53,10 @@
 
         const res: { [key: string]: AttributeCon } = {}
         for (const { id, con } of $policy) {
-            res[id] = [{ t: EMAIL, v: id.toLowerCase() }]
+            res[id] = signing ? [{ t: EMAIL }] : [{ t: EMAIL, v: id.toLowerCase() }]
             for (let { t, v } of con) {
                 if (t === 'pbdf.gemeente.personalData.dateofbirth') v = v.replace(/\.|\//g, '-')
-                res[id].push({ t, v })
+                res[id].push(signing ? { t } : { t, v })
             }
         }
 

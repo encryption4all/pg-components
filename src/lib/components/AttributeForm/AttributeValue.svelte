@@ -1,5 +1,6 @@
 <script lang="ts">
     import { tick, onMount } from 'svelte'
+    import { getContext } from 'svelte'
 
     import './../../app.css'
 
@@ -25,10 +26,22 @@
         ? typ.placeholder.length * 0.8 + 1
         : 10
 
+    const { policy, signing } = getContext('store')
+
     onMount(() => element.focus())
 </script>
 
-{#if typ?.options}
+{#if signing}
+    <input
+    bind:this={element}
+    on:blur={onblur}
+    bind:value
+    readonly
+    size=1
+    class="signing"
+    {...inputProps}
+    />
+{:else if typ?.options}
     <select bind:this={element} on:blur={onblur} bind:value required>
         {#each typ.options as option}
             <option>{option}</option>
@@ -63,5 +76,8 @@
     input {
         height: 100%;
         padding: 0px 2px;
+    }
+    input.signing {
+        cursor: default !important;
     }
 </style>

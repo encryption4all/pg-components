@@ -20,7 +20,7 @@ declare global {
 
     interface AttributeRequest {
         t: string
-        v: string
+        v?: string
     }
 
     interface AttributeType {

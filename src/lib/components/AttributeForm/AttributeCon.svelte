@@ -80,7 +80,7 @@
                 >{$_(`addAttribute${signing ? 'Sign' : ''}`)}</option
             >
             {#each possibleChoices as { ident }}
-                <option required value={ident} label={$_(`attributeTypes.${ident}`)} />
+                <option value={ident} label={$_(`attributeTypes.${ident}`)} />
             {/each}
         </select>
     {/if}
